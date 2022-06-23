@@ -107,7 +107,7 @@ local function buttonB(group, radius, x, y)
 	group:insert(btnBGroup)
 end
 
-local function generator(group)
+local function generator(group, manager)
 	local originTopLeft = {x=0, y=0}
 	local base = generatorBase(group, originTopLeft)
 	cursor(base.root, radiusCursor, 40, const.height - radiusCursor)
@@ -115,7 +115,11 @@ local function generator(group)
 	buttonB(base.root, radiusBtnB, 280, const.height - radiusBtnB)
 
 	function base:enterFrame(event)
-		DEBUG({cur=cur, btnA=btnA, btnB=btnB})
+		if cur == nil and btnA == nil and btnB == nil then
+			manager.setButtonStatus(nil)
+			return
+		end
+		manager.setButtonStatus({cur=cur, btnA=btnA, btnB=btnB})
 	end
 	function base.startEnterFrame()
 		Runtime:addEventListener( 'enterFrame', base )

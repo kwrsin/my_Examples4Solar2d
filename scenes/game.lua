@@ -6,6 +6,7 @@ local const = require('libs.constants')
 local load = require('libs.levelLoader')
 local redHeadGenerate = require('game_objects.actors.redHead')
 local controllerGenerate = require('components.controllerBase')
+local manager = require('managers.manager')
 
 local function create(sceneGroup)
 	local label = display.newText(sceneGroup, "ゲーム中", const.cx, const.cy, native.systemFont, 34)
@@ -16,8 +17,9 @@ function scene:create(event)
 	local sceneGroup = scene.view
 	create(sceneGroup)
 	load(sceneGroup)
-	redHeadGenerate(scene.view, {x=const.cx, y=const.cy})
-	local controller = controllerGenerate(sceneGroup)
+	local player = redHeadGenerate(scene.view, {x=const.cx, y=const.cy, manager=manager})
+	manager.setPlayer(player)
+	local controller = controllerGenerate(sceneGroup, manager)
 end
 
 function scene:show(event)
