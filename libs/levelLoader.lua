@@ -4,7 +4,7 @@ local const = require('libs.constants')
 local storage = require('libs.appStorage')
 
 local function imageSheet(tileset)
-	return graphics.newImageSheet( const.imagePath .. tileset.image, {
+	return graphics.newImageSheet( const.tilesetPath .. tileset.image, {
 			width = tileset.tilewidth,
 			height = tileset.tileheight,
 			numFrames = tileset.tilecount,

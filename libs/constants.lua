@@ -7,7 +7,9 @@ return {
 	actualWidth = display.actualContentWidth,
 	actualHeight = display.actualContentHeight,
 
-	imagePath = "assets/levels/",
+	tilesetPath = "assets/levels/",
+	imagePath = "assets/images/",
+	imageDotPath = "assets.images.",
 
 	roleActor = 'actor',
 	roleItem = 'item',

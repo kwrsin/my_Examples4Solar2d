@@ -1,5 +1,6 @@
 -- base.lua
-local const = require('libs.constant')
+local const = require('libs.constants')
+
 local function generate(group, options)
 	local base  = {}
 	function base.reset(options)
@@ -13,9 +14,13 @@ local function generate(group, options)
 			base.role = options.role or const.roleActor
 		end
 	end
-	base.reset(options)
+	function base.imageSheet(actorPath, options)
+		return graphics.newImageSheet( actorPath, options)
+	end
+
 	base.root = display.newGroup()
-	group.insert(base.root)
+	base.reset(options)
+	group:insert(base.root)
 
 
 	return base
