@@ -16,6 +16,18 @@ local function generate(group, actorName, options)
 		base.sprite:setSequence(name)
 		base.sprite:play()
 	end
+	function base:enterFrame(event)
+		-- dead, not ready, 
+
+		-- move, attack
+	end
+	function base.startEnterFrame()
+		Runtime:addEventListener( 'enterFrame', base )
+	end
+	function base.stopEnterFrame()
+		Runtime:removeEventListener( 'enterFrame', base )
+	end
+	base.startEnterFrame()
 	return base
 end
 

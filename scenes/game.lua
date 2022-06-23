@@ -5,6 +5,7 @@ local scene = composer.newScene( )
 local const = require('libs.constants')
 local load = require('libs.levelLoader')
 local redHeadGenerate = require('game_objects.actors.redHead')
+local controllerGenerate = require('components.controllerBase')
 
 local function create(sceneGroup)
 	local label = display.newText(sceneGroup, "ゲーム中", const.cx, const.cy, native.systemFont, 34)
@@ -16,12 +17,15 @@ function scene:create(event)
 	create(sceneGroup)
 	load(sceneGroup)
 	redHeadGenerate(scene.view, {x=const.cx, y=const.cy})
+	local controller = controllerGenerate(sceneGroup)
 end
 
 function scene:show(event)
+	system.activate( "multitouch" )
 end
 
 function scene:hide(event)
+	system.deactivate( "multitouch" )
 end
 
 

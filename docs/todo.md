@@ -1,6 +1,25 @@
 # TODOs
-- ✅背景の作成
-- actorの作成
-	- actorbaseの作成
+- タイルマップ
+	- ✅背景の作成
+	- ✅actorの作成
+		- ✅actorbaseの作成
+	- レイヤ
+		- camera
+		- controller
+		- bannner
+		- dialogue
+		- contents
+			- item
+			- actor
+			- bg
 - コントローラの作成
+	- target
 - managerの作成
+	- sinario
+- camera
+	- taget
+- player
+	- target
+- wall
+	- static 
+	
