@@ -1,26 +1,38 @@
 -- redHead.lua
 local const require('libs.constants')
 local actorGenerate = require('game_objects.actors.actorBase')
-local function generate(group, options)
-	local actorBase = actorGenerate(group, 'red_head', options)
+local function generate(options)
+	local actorBase = actorGenerate('red_head', options)
 
+	function actorBase.up()
+		actorBase.moveByBoundary( 0, -2 )
+		actorBase.play('up')
+	end
+	function actorBase.down()
+		actorBase.moveByBoundary( 0, 2 )
+		actorBase.play('down')
+	end
+	function actorBase.right()
+		actorBase.moveByBoundary( 2, 0 )
+		actorBase.play('right')
+	end
+	function actorBase.left()
+		actorBase.moveByBoundary( -2, 0 )
+		actorBase.play('win')
+	end
 	-- override
 	function actorBase.onPressedCur(value)
 		if value.x * value.x > value.y * value.y then
 			if value.x > 0 then
-				actorBase.move( 2, 0 )
-				actorBase.play('right')
+				actorBase.right()
 			elseif value.x < 0 then
-				actorBase.move( -2, 0 )
-				actorBase.play('win')
+				actorBase.left()
 			end
 		elseif value.x * value.x < value.y * value.y then
 			if value.y > 0 then
-				actorBase.move( 0, 2 )
-				actorBase.play('down')
+				actorBase.down()
 			elseif value.y < 0 then
-				actorBase.move( 0, -2 )
-				actorBase.play('up')
+				actorBase.up()
 			end
 		end
 	end

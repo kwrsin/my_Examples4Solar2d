@@ -107,9 +107,9 @@ local function buttonB(group, radius, x, y)
 	group:insert(btnBGroup)
 end
 
-local function generator(group, manager)
+local function generator(manager)
 	local originTopLeft = {x=0, y=0}
-	local base = generatorBase(group, originTopLeft)
+	local base = generatorBase(originTopLeft)
 	cursor(base.root, radiusCursor, 40, const.height - radiusCursor)
 	buttonA(base.root, radiusBtnA, 220, const.height - radiusBtnA)
 	buttonB(base.root, radiusBtnB, 280, const.height - radiusBtnB)

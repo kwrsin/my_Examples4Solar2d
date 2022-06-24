@@ -5,19 +5,20 @@
 		- ✅actorbaseの作成
 	- レイヤ
 		- camera
-		- controller
+		- ✅controller
 		- bannner
 		- dialogue
 		- contents
 			- item
 			- actor
 			- bg
-- コントローラの作成
-	- target
+- ✅コントローラの作成
+	- ✅target
 - managerの作成
 	- sinario
 - camera
 	- taget
+	- 配置
 - player
 	- target
 - wall

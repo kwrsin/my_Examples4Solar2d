@@ -2,6 +2,11 @@
 require = require
 local const = require('libs.constants')
 local storage = require('libs.appStorage')
+local perspective = require("components.perspective")
+local controllerGenerate = require('components.controllerBase')
+
+
+local redHeadGenerate = require('game_objects.actors.redHead')
 
 local function imageSheet(tileset)
 	return graphics.newImageSheet( const.tilesetPath .. tileset.image, {
@@ -34,7 +39,10 @@ local function createTile(group, tilesets, gid, x, y)
 		y)
 end
 
-local function load(cameraGroup)
+local function load(sceneGroup, manager)
+	local camera = perspective.createView()
+	sceneGroup:insert(camera)
+	
 	local level_path = storage.level_path
 	local level = require(level_path)
 	local tilesets = loadTiles(level.tilesets)
@@ -55,8 +63,27 @@ local function load(cameraGroup)
 				index = index + 1
 			end
 		end
-		cameraGroup:insert(layerGroup)
+		camera:add(layerGroup, i + 2) 
 	end
+
+	
+	local player = redHeadGenerate({x=const.cx, y=const.cy, manager=manager})
+	manager.setPlayer(player)
+	camera:add(player.root, 2) 
+	camera:setFocus(player.root)
+
+
+	
+	local controller = controllerGenerate(manager)
+	sceneGroup:insert(controller.root) 
+	
+	local worldWidth = level.width * level.tilewidth
+  local worldHeight = level.height * level.tileheight
+	camera:setBounds(const.cx, worldWidth - const.cx, const.cy, worldHeight - const.cy)
+	camera.damping = 10
+	camera:track()
+
+  manager.setWorldBoundary(worldWidth, worldHeight)
 end
 
 

@@ -1,7 +1,7 @@
 -- base.lua
 local const = require('libs.constants')
 
-local function generate(group, options)
+local function generate(options)
 	local base  = {}
 	function base.reset(options)
 		if options then
@@ -20,7 +20,6 @@ local function generate(group, options)
 
 	base.root = display.newGroup()
 	base.reset(options)
-	group:insert(base.root)
 
 
 	return base

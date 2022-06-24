@@ -1,9 +1,9 @@
 -- actorBase.lua
 local const = require('libs.constants')
 local baseGenerate = require('game_objects.base')
-local function generate(group, actorName, options)
+local function generate(actorName, options)
 	options.role = const.roleActor
-	local base = baseGenerate(group, options)
+	local base = baseGenerate(options)
 	base.manager.setActors(base)
 	local isOptions = require(const.imageDotPath .. actorName .. ".actor")
 	local imageSheet = base.imageSheet(const.imagePath .. actorName .. "/actor.png", isOptions.sheetData)
@@ -45,6 +45,36 @@ local function generate(group, actorName, options)
 	end
 	function base.move(deltaX, deltaY)
 		base.root:translate( deltaX, deltaY )
+	end
+	function base.moveByBoundary(deltaX, deltaY)
+		local spFulfHeight = base.sprite.height / 2
+		local spFulfWidth = base.sprite.width / 2
+		if deltaY < 0 then
+			if base.root.y + deltaY <= base.manager.boundary.top + spFulfHeight then
+				base.root.y = base.manager.boundary.top + spFulfHeight
+			else
+				base.root.y = base.root.y + deltaY
+			end
+		elseif deltaY > 0 then
+			if base.root.y + deltaY >= base.manager.boundary.bottom - spFulfHeight then
+				base.root.y = base.manager.boundary.bottom - spFulfHeight
+			else
+				base.root.y = base.root.y + deltaY
+			end
+		end
+		if deltaX < 0 then
+			if base.root.x + deltaX <= base.manager.boundary.left + spFulfWidth then
+				base.root.x = base.manager.boundary.left + spFulfWidth
+			else
+				base.root.x = base.root.x + deltaX
+			end
+		elseif deltaX > 0 then
+			if base.root.x + deltaX >= base.manager.boundary.right - spFulfWidth then
+				base.root.x = base.manager.boundary.right - spFulfWidth
+			else
+				base.root.x = base.root.x + deltaX
+			end
+		end
 	end
 
 	-- virtual
