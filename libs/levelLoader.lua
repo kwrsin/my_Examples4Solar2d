@@ -7,6 +7,7 @@ local controllerGenerate = require('components.controllerBase')
 
 
 local redHeadGenerate = require('game_objects.actors.redHead')
+local physics = require('physics')
 
 local function imageSheet(tileset)
 	return graphics.newImageSheet( const.tilesetPath .. tileset.image, {
@@ -30,13 +31,24 @@ local function loadTiles(tilesets)
 	return tilesetList
 end
 
-local function createTile(group, tilesets, gid, x, y)
-	display.newImage( 
-		group, 
-		tilesets[gid], 
-		gid,
-		x,
-		y)
+local function createTile(group, tilesets, gid, x, y, layerIndex)
+	function localIndex()
+		return gid - 256 * (layerIndex - 1)
+	end
+	local lid = localIndex()
+	function createATile()
+		display.newImage(group, tilesets[gid], lid, x, y)
+	end
+	function createAWall()
+		local aWall = display.newImage(group, tilesets[gid], lid, x, y)
+		physics.addBody(aWall, 'static', {})
+	end
+	
+	if gid == 64 + 1 then
+		createAWall()
+		return
+	end
+	createATile()
 end
 
 local function load(sceneGroup, manager)
@@ -48,30 +60,32 @@ local function load(sceneGroup, manager)
 	local tilesets = loadTiles(level.tilesets)
 	local tilewidth = level.tilewidth
 	local tileheight = level.tileheight
-	local index = 1
 	for i, layer in ipairs(level.layers) do
+		local index = 1
 		local layerGroup = display.newGroup()
 		for row = 1, layer.height do
 			for col = 1, layer.width do
 				local gid = layer.data[index]
-				createTile( 
-					layerGroup, 
-					tilesets, 
-					gid,
-					(col - 1) * tilewidth + tilewidth / 2,
-					(row - 1) * tileheight + tileheight / 2)
+				if gid > 0 then
+					createTile( 
+						layerGroup, 
+						tilesets, 
+						gid,
+						(col - 1) * tilewidth + tilewidth / 2,
+						(row - 1) * tileheight + tileheight / 2,
+						i)
+				end
 				index = index + 1
 			end
 		end
-		camera:add(layerGroup, i + 2) 
+		camera:add(layerGroup, -i + 3) 
 	end
 
 	
 	local player = redHeadGenerate({x=const.cx, y=const.cy, manager=manager})
 	manager.setPlayer(player)
-	camera:add(player.root, 2) 
+	camera:add(player.root, 1) 
 	camera:setFocus(player.root)
-
 
 	
 	local controller = controllerGenerate(manager)

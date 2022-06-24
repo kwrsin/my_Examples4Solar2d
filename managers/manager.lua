@@ -2,6 +2,7 @@
 require = require
 local const = require('libs.constants')
 local load = require('libs.levelLoader')
+local physics = require('physics')
 
 local manager = {
 	ui_mode = false,
@@ -34,6 +35,15 @@ end
 
 function manager.createLevel(sceneGroup)
 	load(sceneGroup, manager)
+end
+
+function manager.start()
+	physics.start()
+	physics.setDrawMode( "hybrid" ) 
+end
+
+function manager.stop()
+	physics.stop()
 end
 
 return manager

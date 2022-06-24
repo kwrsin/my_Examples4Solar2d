@@ -1,10 +1,24 @@
 # TODOs
+- tiled
+	- レイヤ統合
+		- back
+		- actors
+		- items
+		- door
+
+- player
+	- ✅target
+	- dynamic
+
+- wall
+	- static 
+
 - タイルマップ
 	- ✅背景の作成
 	- ✅actorの作成
 		- ✅actorbaseの作成
 	- レイヤ
-		- camera
+		- ✅camera
 		- ✅controller
 		- bannner
 		- dialogue
@@ -16,11 +30,7 @@
 	- ✅target
 - managerの作成
 	- sinario
-- camera
-	- taget
-	- 配置
-- player
-	- target
-- wall
-	- static 
+- ✅camera
+	- ✅taget
+	- ✅配置
 	

@@ -1,6 +1,8 @@
 -- actorBase.lua
 local const = require('libs.constants')
 local baseGenerate = require('game_objects.base')
+local physics = require 'physics'
+
 local function generate(actorName, options)
 	options.role = const.roleActor
 	local base = baseGenerate(options)
@@ -10,6 +12,8 @@ local function generate(actorName, options)
 	local sqOptions = require(const.imageDotPath .. actorName .. ".sequence")
 	local sprite = display.newSprite( base.root, imageSheet, sqOptions )
 	base.sprite = sprite
+	physics.addBody(base.root, 'dynamic', {friction=0.6, bounce=0.2, density=3, radius=10})
+	base.root.gravityScale = 0.0
 
 	function base.play(name)
 		if base.sprite.sequence == name and base.sprite.isPlaying then return end
