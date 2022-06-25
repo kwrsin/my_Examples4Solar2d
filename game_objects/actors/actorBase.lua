@@ -20,6 +20,9 @@ local function generate(actorName, options)
 		base.sprite:play()
 	end
 	function base:enterFrame(event)
+		if base.disabled then
+			return
+		end
 		-- dead, not ready, 
 
 		-- move, attack

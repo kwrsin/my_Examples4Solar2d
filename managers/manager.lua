@@ -23,6 +23,12 @@ function manager.setActors(actor)
 	manager.setGameObject(actor)
 end
 
+function manager.playGame()
+	for i, actor in ipairs(manager.actors) do
+		actor.disabled = false
+	end
+end
+
 function manager.setGameObject(gameObject)
 	table.insert(manager.gameObjects, gameObject)
 end
@@ -54,6 +60,7 @@ function manager.start()
 	manager.banner.start(
 	function()
 		print("GO!")
+		manager.playGame()
 	end)
 end
 

@@ -82,7 +82,7 @@ local function load(sceneGroup, manager)
 	end
 
 	
-	local player = redHeadGenerate({x=const.cx, y=const.cy, manager=manager})
+	local player = redHeadGenerate({x=const.cx, y=const.cy, manager=manager, disabled=true})
 	manager.setPlayer(player)
 	camera:add(player.root, 1) 
 	camera:setFocus(player.root)
