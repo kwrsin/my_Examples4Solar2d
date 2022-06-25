@@ -13,6 +13,7 @@ end
 
 function scene:show(event)
 	system.activate( "multitouch" )
+	manager.ready()
 end
 
 function scene:hide(event)

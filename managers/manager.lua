@@ -6,15 +6,25 @@ local physics = require('physics')
 
 local manager = {
 	ui_mode = false,
-	actors = {}
+	actors = {},
+	gameObjects = {}
 }
 
 function manager.setPlayer(player)
 	manager.player = player
 end
 
+function manager.setBanner(banner)
+	manager.banner = banner
+end
+
 function manager.setActors(actor)
 	table.insert(manager.actors, actor)
+	manager.setGameObject(actor)
+end
+
+function manager.setGameObject(gameObject)
+	table.insert(manager.gameObjects, gameObject)
 end
 
 function manager.setButtonStatus(status)
@@ -40,6 +50,13 @@ end
 function manager.start()
 	physics.start()
 	-- physics.setDrawMode( "hybrid" ) 
+end
+
+function manager.ready()
+	manager.banner.start(
+	function()
+		print("GO!")
+	end)
 end
 
 function manager.stop()

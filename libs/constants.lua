@@ -11,6 +11,4 @@ return {
 	imagePath = "assets/images/",
 	imageDotPath = "assets.images.",
 
-	roleActor = 'actor',
-	roleItem = 'item',
 }

@@ -29,14 +29,14 @@ local function createTitle(group)
 		local button = display.newRoundedRect( buttonGroup, 0, 0, 120, 60, 30 )
 		button:setFillColor( 12/ 255, 128 / 255, 128 / 255 )
 
-		local label = display.newText(buttonGroup, 'スタート', 0, 0, system.nativeFont, 24)
-		group:insert(buttonGroup)
-		group:addEventListener( 'touch', function(event)
-      transition.cancel()
-			composer.gotoScene( 'scenes.game' )
-		end )
-    bigger(buttonGroup, false)
-	end
+      local label = display.newText(buttonGroup, 'スタート', 0, 0, system.nativeFont, 24)
+      group:insert(buttonGroup)
+      group:addEventListener( 'touch', function(event)
+        transition.cancel()
+        composer.gotoScene( 'scenes.game' )
+      end )
+      bigger(buttonGroup, false)
+    end
 
 	local background = display.newRect(const.cx, const.cy, const.actualWidth, const.actualHeight)
 	background:setFillColor( 128 / 255, 10 / 255, 40 / 255 )

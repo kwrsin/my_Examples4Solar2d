@@ -4,7 +4,7 @@ local const = require('libs.constants')
 local storage = require('libs.appStorage')
 local perspective = require("components.perspective")
 local controllerGenerate = require('components.controllerBase')
-
+local bannerGenerate = require('game_objects.banners.banner')
 
 local redHeadGenerate = require('game_objects.actors.redHead')
 local physics = require('physics')
@@ -87,6 +87,9 @@ local function load(sceneGroup, manager)
 	camera:add(player.root, 1) 
 	camera:setFocus(player.root)
 
+	local banner = bannerGenerate({x=const.cx, y=const.cy, ready='assets/images/banners/ready.png', go='assets/images/banners/go.png', manager=manager})
+	manager.setBanner(banner)
+	sceneGroup:insert(banner.root)
 	
 	local controller = controllerGenerate(manager)
 	sceneGroup:insert(controller.root) 

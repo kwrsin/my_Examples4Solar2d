@@ -4,7 +4,6 @@ local baseGenerate = require('game_objects.base')
 local physics = require 'physics'
 
 local function generate(actorName, options)
-	options.role = const.roleActor
 	local base = baseGenerate(options)
 	base.manager.setActors(base)
 	local isOptions = require(const.imageDotPath .. actorName .. ".actor")

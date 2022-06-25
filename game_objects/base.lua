@@ -11,7 +11,6 @@ local function generate(options)
 			base.root.x = options.x
 			base.root.y = options.y
 			base.manager = options.manager
-			base.role = options.role or const.roleActor
 		end
 	end
 	function base.imageSheet(actorPath, options)
