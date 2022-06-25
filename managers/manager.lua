@@ -39,7 +39,7 @@ end
 
 function manager.start()
 	physics.start()
-	physics.setDrawMode( "hybrid" ) 
+	-- physics.setDrawMode( "hybrid" ) 
 end
 
 function manager.stop()
