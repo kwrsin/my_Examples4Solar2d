@@ -6,14 +6,13 @@ local const = require('libs.constants')
 local manager = require('managers.manager')
 
 function scene:create(event)
-	manager.start()
 	local sceneGroup = scene.view
 	manager.createLevel(sceneGroup)
 end
 
 function scene:show(event)
 	system.activate( "multitouch" )
-	manager.ready()
+	manager.start()
 end
 
 function scene:hide(event)

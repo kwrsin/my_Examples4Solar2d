@@ -8,11 +8,13 @@ local function generate(options)
 	base.manager.setGameObject(base)
 	local ready = display.newImage(base.root, options.ready)
 	local go = display.newImage(base.root, options.go)
-	ready.yScale = 0.1
-	go.yScale = 0.1
-	ready.alpha = 0
-	go.alpha = 0
-
+	function base.rewind()
+		ready.yScale = 0.1
+		go.yScale = 0.1
+		ready.alpha = 0
+		go.alpha = 0
+	end
+	base.rewind()
 
 	function base.play(banner, callback)
 		transition.scaleTo( banner, {iterations=1, transition=easing.outElastic, yScale=1.0, alpha=1, time=500, onComplete=function()
@@ -24,10 +26,7 @@ local function generate(options)
 			end })
 	end
 	function base.start(callback)
-		ready.yScale = 0.1
-		go.yScale = 0.1
-		ready.alpha = 0
-		go.alpha = 0
+		base.rewind()
 		base.play(ready, 
 			function() 
 				base.play(go, 

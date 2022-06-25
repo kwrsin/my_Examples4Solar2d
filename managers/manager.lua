@@ -44,15 +44,13 @@ function manager.setWorldBoundary(worldWidth, worldHeight)
 end
 
 function manager.createLevel(sceneGroup)
+	physics.start(false)
 	load(sceneGroup, manager)
 end
 
 function manager.start()
-	physics.start()
+	physics.start(true)
 	-- physics.setDrawMode( "hybrid" ) 
-end
-
-function manager.ready()
 	manager.banner.start(
 	function()
 		print("GO!")
