@@ -1,4 +1,3 @@
-
 require = require
 local const = require('libs.constants')
 local storage = require('libs.appStorage')
@@ -7,6 +6,7 @@ local controllerGenerate = require('components.controllerBase')
 local bannerGenerate = require('game_objects.banners.banner')
 
 local redHeadGenerate = require('game_objects.actors.redHead')
+local reibaishiGenerate = require('game_objects.actors.reibaishi')
 local physics = require('physics')
 
 local function imageSheet(tileset)
@@ -31,7 +31,11 @@ local function loadTiles(tilesets)
 	return tilesetList
 end
 
-local function createTile(group, tilesets, gid, x, y, layerIndex)
+--[[
+	Add Actors
+	Don't forget a "return" after actor createing.
+--]]
+local function createTile(group, tilesets, gid, x, y, layerIndex, manager)
 	function localIndex()
 		return gid - 256 * (layerIndex - 1)
 	end
@@ -43,12 +47,15 @@ local function createTile(group, tilesets, gid, x, y, layerIndex)
 		local aWall = display.newImage(group, tilesets[gid], lid, x, y)
 		physics.addBody(aWall, 'static', {})
 	end
-	
-	if gid == 64 + 1 then
+
+	if gid == 256 + 2 + 1 then
+		local reibaishi = reibaishiGenerate({x=x, y=y, manager=manager, disabled=true})
+		group:insert(reibaishi.root)
+	elseif gid == 64 + 1 then
 		createAWall()
-		return
+	else
+		createATile()
 	end
-	createATile()
 end
 
 local function load(sceneGroup, manager)
@@ -73,7 +80,8 @@ local function load(sceneGroup, manager)
 						gid,
 						(col - 1) * tilewidth + tilewidth / 2,
 						(row - 1) * tileheight + tileheight / 2,
-						i)
+						i,
+						manager)
 				end
 				index = index + 1
 			end

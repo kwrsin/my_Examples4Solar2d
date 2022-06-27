@@ -54,6 +54,9 @@ function manager.createLevel(sceneGroup)
 	load(sceneGroup, manager)
 end
 
+--[[
+ GAME SCENARIO
+--]]
 function manager.start()
 	physics.start(true)
 	-- physics.setDrawMode( "hybrid" ) 
