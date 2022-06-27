@@ -20,11 +20,6 @@ local function generate(options)
 	end
 	base.root = display.newGroup()
 	base.reset(options)
-	if base.isPlayer then
-		base.manager.setPlayer(base)
-		base.manager.camera:setFocus(base.root)
-	end
-
 	return base
 end
 

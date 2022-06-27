@@ -6,6 +6,7 @@ local const = require('libs.constants')
 
 local scene = composer.newScene( )
 
+--TODO: dialogue&timer&status
 local controllerGenerate = require('components.controllerBase')
 local controller = controllerGenerate(nil)
 display.getCurrentStage():insert( controller.root )

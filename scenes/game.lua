@@ -8,6 +8,7 @@ local showOnce = false
 
 function scene:create(event)
 	local sceneGroup = scene.view
+	--TODO: dialogue&timer&status
 	local controller = event.params.controller
 	manager.createLevel(sceneGroup, controller)
 end

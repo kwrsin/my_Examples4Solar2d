@@ -8,11 +8,16 @@ local manager = {
 	ui_mode = false,
 	actors = {},
 	gameObjects = {},
-	controller = nil
+	controller = nil,
+	enemies ={},
 }
 
 function manager.setPlayer(player)
 	manager.player = player
+end
+
+function manager.addEnemy(enemy)
+	table.insert(manager.enemies, enemy)
 end
 
 function manager.setBanner(banner)
@@ -53,6 +58,7 @@ end
 function manager.createLevel(sceneGroup, controller)
 	physics.start(false)
 	controller.setManager(manager)
+	--TODO: dialogue&timer&status
 	manager.controller = controller
 	load(sceneGroup, manager)
 end

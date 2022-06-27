@@ -93,6 +93,12 @@ local function generate(actorName, options)
 	function base.waiting()
 	end
 	base.startEnterFrame()
+	if base.isPlayer then
+		base.manager.setPlayer(base)
+		base.manager.camera:setFocus(base.root)
+	else
+		base.manager.addEnemy(base)
+	end
 	return base
 end
 
