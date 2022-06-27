@@ -54,6 +54,10 @@ function manager.createLevel(sceneGroup)
 	load(sceneGroup, manager)
 end
 
+function manager.setCamera(camera)
+	manager.camera = camera
+end
+
 --[[
  GAME SCENARIO
 --]]

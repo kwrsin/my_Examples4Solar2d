@@ -18,7 +18,7 @@ local function generate(options)
 	end
 	function actorBase.left()
 		actorBase.moveByBoundary( -4, 0 )
-		actorBase.play('win')
+		actorBase.play('left')
 	end
 	-- override
 	function actorBase.onPressedCur(value)

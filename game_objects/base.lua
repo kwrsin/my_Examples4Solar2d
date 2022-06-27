@@ -11,15 +11,19 @@ local function generate(options)
 			base.root.x = options.x
 			base.root.y = options.y
 			base.manager = options.manager
+			base.isPlayer = options.isPlayer or false
+			base.disabled = options.disabled or false
 		end
 	end
 	function base.imageSheet(actorPath, options)
 		return graphics.newImageSheet( actorPath, options)
 	end
-
 	base.root = display.newGroup()
 	base.reset(options)
-
+	if base.isPlayer then
+		base.manager.setPlayer(base)
+		base.manager.camera:setFocus(base.root)
+	end
 
 	return base
 end

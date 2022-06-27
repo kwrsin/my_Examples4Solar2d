@@ -48,8 +48,11 @@ local function createTile(group, tilesets, gid, x, y, layerIndex, manager)
 		physics.addBody(aWall, 'static', {})
 	end
 
-	if gid == 256 + 2 + 1 then
-		local reibaishi = reibaishiGenerate({x=x, y=y, manager=manager, disabled=true})
+	if gid == 256 + 0 + 1 then
+		local redHead = redHeadGenerate({x=const.cx, y=const.cy, manager=manager, disabled=true})
+		group:insert(redHead.root)
+	elseif gid == 256 + 2 + 1 then
+		local reibaishi = reibaishiGenerate({x=x, y=y, manager=manager, disabled=true, isPlayer=true})
 		group:insert(reibaishi.root)
 	elseif gid == 64 + 1 then
 		createAWall()
@@ -61,6 +64,7 @@ end
 local function load(sceneGroup, manager)
 	local camera = perspective.createView()
 	sceneGroup:insert(camera)
+	manager.setCamera(camera)
 	
 	local level_path = storage.level_path
 	local level = require(level_path)
@@ -88,13 +92,7 @@ local function load(sceneGroup, manager)
 		end
 		camera:add(layerGroup, -i + 3) 
 	end
-
 	
-	local player = redHeadGenerate({x=const.cx, y=const.cy, manager=manager, disabled=true})
-	manager.setPlayer(player)
-	camera:add(player.root, 1) 
-	camera:setFocus(player.root)
-
 	local banner = bannerGenerate({x=const.cx, y=const.cy, ready='assets/images/banners/ready.png', go='assets/images/banners/go.png', manager=manager})
 	manager.setBanner(banner)
 	sceneGroup:insert(banner.root)
