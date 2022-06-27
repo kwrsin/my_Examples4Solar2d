@@ -2,7 +2,6 @@ require = require
 local const = require('libs.constants')
 local storage = require('libs.appStorage')
 local perspective = require("components.perspective")
-local controllerGenerate = require('components.controllerBase')
 local bannerGenerate = require('game_objects.banners.banner')
 
 local redHeadGenerate = require('game_objects.actors.redHead')
@@ -97,8 +96,6 @@ local function load(sceneGroup, manager)
 	manager.setBanner(banner)
 	sceneGroup:insert(banner.root)
 	
-	local controller = controllerGenerate(manager)
-	sceneGroup:insert(controller.root) 
 	
 	local worldWidth = level.width * level.tilewidth
   local worldHeight = level.height * level.tileheight

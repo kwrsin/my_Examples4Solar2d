@@ -7,7 +7,8 @@ local physics = require('physics')
 local manager = {
 	ui_mode = false,
 	actors = {},
-	gameObjects = {}
+	gameObjects = {},
+	controller = nil
 }
 
 function manager.setPlayer(player)
@@ -49,8 +50,10 @@ function manager.setWorldBoundary(worldWidth, worldHeight)
 	  }
 end
 
-function manager.createLevel(sceneGroup)
+function manager.createLevel(sceneGroup, controller)
 	physics.start(false)
+	controller.setManager(manager)
+	manager.controller = controller
 	load(sceneGroup, manager)
 end
 
@@ -64,6 +67,7 @@ end
 function manager.start()
 	physics.start(true)
 	-- physics.setDrawMode( "hybrid" ) 
+	manager.controller.show()
 	manager.banner.start(
 	function()
 		print("GO!")

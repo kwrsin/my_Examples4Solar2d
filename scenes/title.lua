@@ -6,6 +6,10 @@ local const = require('libs.constants')
 
 local scene = composer.newScene( )
 
+local controllerGenerate = require('components.controllerBase')
+local controller = controllerGenerate(nil)
+display.getCurrentStage():insert( controller.root )
+
 local function bigger(obj, flip)
   local params
   if flip then
@@ -33,7 +37,7 @@ local function createTitle(group)
       group:insert(buttonGroup)
       group:addEventListener( 'touch', function(event)
         transition.cancel()
-        composer.gotoScene( 'scenes.game' )
+        composer.gotoScene( 'scenes.game', { effect="slideRight", time=800, params={controller=controller} } )
       end )
       bigger(buttonGroup, false)
     end

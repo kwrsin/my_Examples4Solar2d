@@ -108,24 +108,36 @@ local function buttonB(group, radius, x, y)
 end
 
 local function generator(manager)
-	local originTopLeft = {x=0, y=0}
+	local offset = 100
+	local originTopLeft = {x=0, y=offset}
 	local base = generatorBase(originTopLeft)
 	cursor(base.root, radiusCursor, 40, const.height - radiusCursor)
 	buttonA(base.root, radiusBtnA, 220, const.height - radiusBtnA)
 	buttonB(base.root, radiusBtnB, 280, const.height - radiusBtnB)
+	base.manager = manager
 
 	function base:enterFrame(event)
+		if base.manager == nil then return end
 		if cur == nil and btnA == nil and btnB == nil then
-			manager.setButtonStatus(nil)
+			base.manager.setButtonStatus(nil)
 			return
 		end
-		manager.setButtonStatus({cur=cur, btnA=btnA, btnB=btnB})
+		base.manager.setButtonStatus({cur=cur, btnA=btnA, btnB=btnB})
 	end
 	function base.startEnterFrame()
 		Runtime:addEventListener( 'enterFrame', base )
 	end
 	function base.stopEnterFrame()
 		Runtime:removeEventListener( 'enterFrame', base )
+	end
+	function base.setManager(manager)
+		base.manager = manager
+	end
+	function base.show()
+		transition.moveTo( base.root, {y=0, time=500, transition=easing.outBounce} )
+	end
+	function base.hide()
+		transition.moveTo( base.root, {y=offset, time=500} )
 	end
 	base.startEnterFrame()
 
