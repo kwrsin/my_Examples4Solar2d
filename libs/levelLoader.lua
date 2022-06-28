@@ -3,9 +3,13 @@ local const = require('libs.constants')
 local storage = require('libs.appStorage')
 local perspective = require("components.perspective")
 local bannerGenerate = require('game_objects.banners.banner')
+local gameoverGenerate = require('game_objects.banners.gameover')
 
 local redHeadGenerate = require('game_objects.actors.redHead')
 local reibaishiGenerate = require('game_objects.actors.reibaishi')
+local reibaishiGenerate = require('game_objects.actors.reibaishi')
+local goalGenerate = require('game_objects.doors.goal')
+local controllerGenerate = require('components.controllerBase')
 local physics = require('physics')
 
 local function imageSheet(tileset)
@@ -48,11 +52,11 @@ local function createTile(group, tilesets, gid, x, y, layerIndex, manager)
 	end
 
 	if gid == 256 + 0 + 1 then
-		local redHead = redHeadGenerate({x=const.cx, y=const.cy, manager=manager, disabled=true})
-		group:insert(redHead.root)
+		redHeadGenerate({group=group, x=x, y=y, manager=manager, disabled=true})
 	elseif gid == 256 + 2 + 1 then
-		local reibaishi = reibaishiGenerate({x=x, y=y, manager=manager, disabled=true, isPlayer=true})
-		group:insert(reibaishi.root)
+		reibaishiGenerate({group=group, x=x, y=y, manager=manager, disabled=true, isPlayer=true})
+	elseif gid == 183 + 1 then
+		goalGenerate(tilesets[gid], lid, {group=group, x=x, y=y, manager=manager})
 	elseif gid == 64 + 1 then
 		createAWall()
 	else
@@ -95,13 +99,20 @@ local function load(sceneGroup, manager)
 	local banner = bannerGenerate({x=const.cx, y=const.cy, ready='assets/images/banners/ready.png', go='assets/images/banners/go.png', manager=manager})
 	manager.setBanner(banner)
 	sceneGroup:insert(banner.root)
-	
+
+	local gameover = gameoverGenerate({x=const.cx, y=0 - 200, manager=manager})
+	manager.setGameOver(gameover)
+	sceneGroup:insert(gameover.root)
+		
 	
 	local worldWidth = level.width * level.tilewidth
   local worldHeight = level.height * level.tileheight
 	camera:setBounds(const.cx, worldWidth - const.cx, const.cy, worldHeight - const.cy)
 	camera.damping = 10
 	camera:track()
+	
+	local controller = controllerGenerate(manager)
+	sceneGroup:insert(controller.root)
 
   manager.setWorldBoundary(worldWidth, worldHeight)
 end

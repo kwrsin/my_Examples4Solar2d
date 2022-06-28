@@ -3,6 +3,7 @@ require = require
 local const = require('libs.constants')
 local load = require('libs.levelLoader')
 local physics = require('physics')
+local composer = require('composer')
 
 local manager = {
 	ui_mode = false,
@@ -10,6 +11,7 @@ local manager = {
 	gameObjects = {},
 	controller = nil,
 	enemies ={},
+	inGame = false,
 }
 
 function manager.setPlayer(player)
@@ -22,16 +24,30 @@ end
 
 function manager.setBanner(banner)
 	manager.banner = banner
+	manager.setGameObject(banner)
 end
 
-function manager.setActors(actor)
+function manager.setGameOver(gameover)
+	manager.gameover = gameover
+	manager.setGameObject(gameover)
+end
+
+function manager.setActor(actor)
 	table.insert(manager.actors, actor)
 	manager.setGameObject(actor)
 end
 
 function manager.playGame()
+	manager.inGame = true
 	for i, actor in ipairs(manager.actors) do
 		actor.disabled = false
+	end
+end
+
+function manager.stopActors()
+	manager.inGame = false
+	for i, actor in ipairs(manager.actors) do
+		actor.disabled = true
 	end
 end
 
@@ -55,11 +71,14 @@ function manager.setWorldBoundary(worldWidth, worldHeight)
 	  }
 end
 
-function manager.createLevel(sceneGroup, controller)
+function manager.resetAllGameObjects()
+	for i, go in ipairs(manager.gameObjects) do
+		go.reset()
+	end	
+end
+
+function manager.createLevel(sceneGroup)
 	physics.start(false)
-	controller.setManager(manager)
-	--TODO: dialogue&timer&status
-	manager.controller = controller
 	load(sceneGroup, manager)
 end
 
@@ -73,16 +92,21 @@ end
 function manager.start()
 	physics.start(true)
 	-- physics.setDrawMode( "hybrid" ) 
+	manager.resetAllGameObjects()
 	manager.controller.show()
 	manager.banner.start(
 	function()
-		print("GO!")
 		manager.playGame()
 	end)
 end
 
 function manager.stop()
-	physics.stop()
+	manager.controller.hide()
+	manager.stopActors()
+	manager.gameover.start(
+		function()
+			composer.gotoScene("scenes.title")
+		end)
 end
 
 return manager

@@ -1,4 +1,4 @@
--- ready.lua
+-- banner.lua
 local const = require('libs.constants')
 local baseGenerate = require('game_objects.base')
 

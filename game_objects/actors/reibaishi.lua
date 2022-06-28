@@ -43,8 +43,11 @@ local function generate(options)
 	function actorBase.waiting()
 		actorBase.play('lose')
 	end	
+	function actorBase.setup()
+		actorBase.buttonStatus = nil
+		actorBase.play('lose')
+	end
 
-	actorBase.play('lose')
 	return actorBase
 end
 

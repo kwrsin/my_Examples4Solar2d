@@ -5,7 +5,7 @@ local physics = require 'physics'
 
 local function generate(actorName, options)
 	local base = baseGenerate(options)
-	base.manager.setActors(base)
+	base.manager.setActor(base)
 	local isOptions = require(const.imageDotPath .. actorName .. ".actor")
 	local imageSheet = base.imageSheet(const.imagePath .. actorName .. "/actor.png", isOptions.sheetData)
 	local sqOptions = require(const.imageDotPath .. actorName .. ".sequence")
@@ -19,6 +19,7 @@ local function generate(actorName, options)
 		base.sprite:setSequence(name)
 		base.sprite:play()
 	end
+	
 	function base:enterFrame(event)
 		if base.disabled then
 			return
@@ -92,13 +93,13 @@ local function generate(actorName, options)
 	end
 	function base.waiting()
 	end
-	base.startEnterFrame()
 	if base.isPlayer then
 		base.manager.setPlayer(base)
 		base.manager.camera:setFocus(base.root)
 	else
 		base.manager.addEnemy(base)
 	end
+	base.startEnterFrame()
 	return base
 end
 

@@ -4,26 +4,27 @@ local composer = require('composer')
 local scene = composer.newScene( )
 local const = require('libs.constants')
 local manager = require('managers.manager')
-local showOnce = false
 
 function scene:create(event)
 	local sceneGroup = scene.view
-	--TODO: dialogue&timer&status
-	local controller = event.params.controller
-	manager.createLevel(sceneGroup, controller)
+	manager.createLevel(sceneGroup)
 end
 
 function scene:show(event)
-	system.activate( "multitouch" )
-	if showOnce == false then
+	local sceneGroup = scene.view
+	if event.phase == "will" then
+		system.activate( "multitouch" )
 		manager.start()
-		showOnce = true
+	elseif event.phase == "did" then
 	end
 end
 
 function scene:hide(event)
-	-- manager.stop()
-	system.deactivate( "multitouch" )
+	local sceneGroup = scene.view
+	if event.phase == "will" then
+	elseif event.phase == "did" then
+		system.deactivate( "multitouch" )
+	end
 end
 
 

@@ -5,11 +5,7 @@ local composer = require('composer')
 local const = require('libs.constants')
 
 local scene = composer.newScene( )
-
---TODO: dialogue&timer&status
-local controllerGenerate = require('components.controllerBase')
-local controller = controllerGenerate(nil)
-display.getCurrentStage():insert( controller.root )
+local buttonGroup
 
 local function bigger(obj, flip)
   local params
@@ -28,20 +24,27 @@ local function bigger(obj, flip)
 end
 local function createTitle(group)
 	local function createStartButton(group)
-		local buttonGroup = display.newGroup()
+		buttonGroup = display.newGroup()
 		buttonGroup.x =  const.cx
 		buttonGroup.y = const.cy + 160
 		local button = display.newRoundedRect( buttonGroup, 0, 0, 120, 60, 30 )
 		button:setFillColor( 12/ 255, 128 / 255, 128 / 255 )
-
-      local label = display.newText(buttonGroup, 'スタート', 0, 0, system.nativeFont, 24)
-      group:insert(buttonGroup)
-      group:addEventListener( 'touch', function(event)
-        transition.cancel()
-        composer.gotoScene( 'scenes.game', { effect="slideRight", time=800, params={controller=controller} } )
-      end )
-      bigger(buttonGroup, false)
-    end
+    local isFocus
+    local label = display.newText(buttonGroup, 'スタート', 0, 0, system.nativeFont, 24)
+    group:insert(buttonGroup)
+    buttonGroup:addEventListener( 'touch', function(event)
+      if event.phase == "began" then
+        display.getCurrentStage():setFocus( buttonGroup )
+        isFocus = true
+      elseif isFocus then
+        if event.phase == "ended" or event.phase == "cancelled"  then
+          display.getCurrentStage():setFocus( nil )
+          isFocus = nil
+          composer.gotoScene( 'scenes.game' )
+        end
+      end
+    end )
+  end
 
 	local background = display.newRect(const.cx, const.cy, const.actualWidth, const.actualHeight)
 	background:setFillColor( 128 / 255, 10 / 255, 40 / 255 )
@@ -61,11 +64,13 @@ end
 
 function scene:create(event)
 	local sceneGroup = scene.view
-	createTitle(sceneGroup)
+  createTitle(sceneGroup)
   createLogo(sceneGroup)
+  bigger(buttonGroup, true)
 end
 
 function scene:show(event)
+  local sceneGroup = scene.view
 	if event.phase == 'will' then
 	elseif event.phase == 'did' then
 	end

@@ -47,6 +47,7 @@ local function cursor(group, radius, x, y)
     return true		
 	end )
 	group:insert(cursorGroup)
+	return cursorGroup
 end
 
 local function buttonA(group, radius, x, y)
@@ -76,6 +77,7 @@ local function buttonA(group, radius, x, y)
     return true		
 	end )
 	group:insert(btnAGroup)
+	return btnAGroup
 end
 
 local function buttonB(group, radius, x, y)
@@ -105,19 +107,22 @@ local function buttonB(group, radius, x, y)
     return true		
 	end )
 	group:insert(btnBGroup)
+	return btnBGroup
 end
 
 local function generator(manager)
 	local offset = 100
 	local originTopLeft = {x=0, y=offset}
 	local base = generatorBase(originTopLeft)
-	cursor(base.root, radiusCursor, 40, const.height - radiusCursor)
-	buttonA(base.root, radiusBtnA, 220, const.height - radiusBtnA)
-	buttonB(base.root, radiusBtnB, 280, const.height - radiusBtnB)
+	base.cursorGroup = cursor(base.root, radiusCursor, 40, const.height - radiusCursor)
+	base.btnAGroup = buttonA(base.root, radiusBtnA, 220, const.height - radiusBtnA)
+	base.btnBGroup = buttonB(base.root, radiusBtnB, 280, const.height - radiusBtnB)
 	base.manager = manager
+	base.manager.controller = base
 
 	function base:enterFrame(event)
 		if base.manager == nil then return end
+		if base.manager.player.disabled == true then return end
 		if cur == nil and btnA == nil and btnB == nil then
 			base.manager.setButtonStatus(nil)
 			return
@@ -130,16 +135,26 @@ local function generator(manager)
 	function base.stopEnterFrame()
 		Runtime:removeEventListener( 'enterFrame', base )
 	end
-	function base.setManager(manager)
-		base.manager = manager
-	end
 	function base.show()
-		transition.moveTo( base.root, {y=0, time=500, transition=easing.outBounce} )
+		transition.moveTo( base.root, {y=0, time=500, transition=easing.outBounce, onComplete=function()
+				base.startEnterFrame()
+		end})
+	end
+	function releaseAll()
+		reset({target=base.cursorGroup})
+		reset({target=base.btnAGroup})
+		reset({target=base.btnBGroup})
+		cur = nil
+		btnA = nil
+		btnB = nil
 	end
 	function base.hide()
-		transition.moveTo( base.root, {y=offset, time=500} )
+		-- transition.moveTo( base.root, {y=offset, time=500} )
+		base.stopEnterFrame()
+		releaseAll()
+		base.root.x = originTopLeft.x
+		base.root.y = originTopLeft.y
 	end
-	base.startEnterFrame()
 
 	return base
 end
