@@ -9,7 +9,6 @@ local redHeadGenerate = require('game_objects.actors.redHead')
 local reibaishiGenerate = require('game_objects.actors.reibaishi')
 local reibaishiGenerate = require('game_objects.actors.reibaishi')
 local goalGenerate = require('game_objects.doors.goal')
-local controllerGenerate = require('components.controllerBase')
 local physics = require('physics')
 
 local function imageSheet(tileset)
@@ -110,10 +109,9 @@ local function load(sceneGroup, manager)
 	camera:setBounds(const.cx, worldWidth - const.cx, const.cy, worldHeight - const.cy)
 	camera.damping = 10
 	camera:track()
-	
-	local controller = controllerGenerate(manager)
-	sceneGroup:insert(controller.root)
 
+	appStatus.controller.setManager(manager)
+	
   manager.setWorldBoundary(worldWidth, worldHeight)
 end
 
