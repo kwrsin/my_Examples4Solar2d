@@ -117,9 +117,7 @@ local function generator(manager)
 	base.cursorGroup = cursor(base.root, radiusCursor, 40, const.height - radiusCursor)
 	base.btnAGroup = buttonA(base.root, radiusBtnA, 220, const.height - radiusBtnA)
 	base.btnBGroup = buttonB(base.root, radiusBtnB, 280, const.height - radiusBtnB)
-	base.manager = manager
-	base.manager.controller = base
-
+	
 	function base:enterFrame(event)
 		if base.manager == nil then return end
 		if base.manager.player.disabled == true then return end
@@ -134,6 +132,12 @@ local function generator(manager)
 	end
 	function base.stopEnterFrame()
 		Runtime:removeEventListener( 'enterFrame', base )
+	end
+	function base.setManager(manager)
+		if manager then
+			base.manager = manager
+			base.manager.controller = base
+		end
 	end
 	function base.show()
 		transition.moveTo( base.root, {y=0, time=500, transition=easing.outBounce, onComplete=function()
@@ -156,6 +160,7 @@ local function generator(manager)
 		base.root.y = originTopLeft.y
 	end
 
+	base.setManager(manager)
 	return base
 end
 

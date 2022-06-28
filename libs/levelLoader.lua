@@ -1,6 +1,6 @@
 require = require
 local const = require('libs.constants')
-local storage = require('libs.appStorage')
+local appStatus = require('libs.appStatus')
 local perspective = require("components.perspective")
 local bannerGenerate = require('game_objects.banners.banner')
 local gameoverGenerate = require('game_objects.banners.gameover')
@@ -69,7 +69,7 @@ local function load(sceneGroup, manager)
 	sceneGroup:insert(camera)
 	manager.setCamera(camera)
 	
-	local level_path = storage.level_path
+	local level_path = appStatus.level_path
 	local level = require(level_path)
 	local tilesets = loadTiles(level.tilesets)
 	local tilewidth = level.tilewidth
