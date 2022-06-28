@@ -1,4 +1,3 @@
-require = require
 local composer = require("composer")
 local appStatus = require("libs.appStatus")
 local inspect = require("libs.inspect")

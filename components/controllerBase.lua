@@ -1,4 +1,3 @@
-require = require
 local const = require('libs.constants')
 local generatorBase = require('game_objects.base')
 local cur = nil

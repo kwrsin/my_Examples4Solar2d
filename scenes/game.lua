@@ -1,5 +1,4 @@
 -- game.lua
-require = require
 local composer = require('composer')
 local scene = composer.newScene( )
 local const = require('libs.constants')

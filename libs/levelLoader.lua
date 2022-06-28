@@ -1,4 +1,3 @@
-require = require
 local const = require('libs.constants')
 local appStatus = require('libs.appStatus')
 local perspective = require("components.perspective")

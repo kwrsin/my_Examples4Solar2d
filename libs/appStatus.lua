@@ -1,5 +1,4 @@
 -- appStatus.lua
-require = require
 local appStatus = {}
 
 appStatus.level_path = ''

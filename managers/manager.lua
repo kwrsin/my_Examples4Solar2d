@@ -1,5 +1,4 @@
 -- manager.lua
-require = require
 local const = require('libs.constants')
 local load = require('libs.levelLoader')
 local physics = require('physics')

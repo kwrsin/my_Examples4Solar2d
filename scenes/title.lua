@@ -1,5 +1,4 @@
 -- title.lua
-require = require
 local composer = require('composer')
 
 local const = require('libs.constants')
