@@ -109,9 +109,9 @@ local function buttonB(group, radius, x, y)
 	return btnBGroup
 end
 
-local function generator(manager)
-	local offset = 100
-	local originTopLeft = {x=0, y=offset}
+local function generator(options)
+	local originTopLeft = options or {}
+	originTopLeft.y = originTopLeft.y or 100
 	local base = generatorBase(originTopLeft)
 	base.cursorGroup = cursor(base.root, radiusCursor, 40, const.height - radiusCursor)
 	base.btnAGroup = buttonA(base.root, radiusBtnA, 220, const.height - radiusBtnA)
