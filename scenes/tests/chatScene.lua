@@ -26,9 +26,9 @@ function createButton(sceneGroup)
 					230,
 					100,
 					color,
-					false,
+					true,
 					function()
-						print('おしまい')
+						DEBUG('おしまい')
 						playing = false
 					end)
 				playing = true

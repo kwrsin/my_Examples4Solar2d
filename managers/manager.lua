@@ -3,6 +3,12 @@ local const = require('libs.constants')
 local load = require('libs.levelLoader')
 local physics = require('physics')
 local composer = require('composer')
+local scenarioIndice = require('assets.scenarios.scenarioIndice')
+local appStatus = require('libs.appStatus')
+
+local pressedCur = false
+local pressedBtnA = false
+local pressedBtnB = false
 
 local manager = {
 	ui_mode = false,
@@ -56,6 +62,24 @@ end
 
 function manager.setButtonStatus(status)
 	if manager.ui_mode then
+		manager.player.buttonStatus = nil
+		if status and status.cur then
+			pressedCur = true
+		elseif status and status.btnA then
+			pressedBtnA = true
+		elseif status and status.btnB then
+			pressedBtnB = true
+		end
+		if pressedCur and (not status or not status.cur) then
+			pressedCur = false
+			DEBUG("pressedCur")
+		elseif pressedBtnA and (not status or not status.btnA) then
+			pressedBtnA = false
+			appStatus.dialogue.flush()
+		elseif pressedBtnB and (not status or not status.btnB) then
+			pressedBtnB = false
+			DEBUG("pressedBtnB")
+		end
 	elseif manager.player then
 		manager.player.buttonStatus = status
 	end
@@ -106,6 +130,14 @@ function manager.stop()
 		function()
 			composer.gotoScene("scenes.title")
 		end)
+end
+
+function manager.runScenario( scenario_index, playNumber )
+	if not playNumber or playNumber < 0 then playNumber = 1 end
+	manager.ui_mode = true
+	local scenario = require(scenarioIndice[scenario_index])
+	appStatus.dialogue.setManager(manager)
+	appStatus.dialogue.show2(scenario.sentences[playNumber])
 end
 
 return manager

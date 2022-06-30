@@ -12,6 +12,20 @@ local function generate(actorName, options)
 	local sprite = display.newSprite( base.root, imageSheet, sqOptions )
 	base.sprite = sprite
 	physics.addBody(base.root, 'dynamic', {friction=0.6, bounce=0.2, density=3, radius=10})
+	base.root.collision = function(self, event)
+		if event.phase == 'began' then
+			if event.other._role == const.role_npc then
+				base.manager.runScenario( event.other._scenario_index )
+			elseif event.other._role == const.role_enemy then
+
+			elseif event.other._role == const.role_item then
+
+			end
+		end
+	end
+	base.root._actor_name = actorName
+	base.root._is_player = base.isPlayer
+	base.root:addEventListener('collision', base.root)
 	base.root.gravityScale = 0.0
 
 	function base.play(name)

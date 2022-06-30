@@ -108,10 +108,27 @@ local function generate(options)
 	name = display.newText( container, '', 0, -textHeight / 2 + 30, native.systemFont, 32 )
 	name.anchorX = 1
 	createPrompt( base.root )
+
+	function base.setManager(manager)
+		base.manager = manager
+	end
 	
+	function base.show2(options)
+		base.show(
+			options.data, 
+			options.name, 
+			options.image_path, 
+			options.imageYpos, 
+			options.duration, 
+			options.color, 
+			options.needPrompt, 
+			options.trigger
+		)
+	end
 
 	function base.show(data, pName, pImage_path, imageYpos, pDuration, pColor, pNeedPrompt, pTrigger)
 		needPrompt = pNeedPrompt
+		clear()
 		removeImage()
 		if pImage_path and image_path ~= pImage_path then
 			image = display.newImage( base.root, pImage_path)
@@ -130,7 +147,7 @@ local function generate(options)
 		transition.scaleTo(container, {time=500, yScale=0.1, alpha=0, iterations=1, 
 			onComplete=function()
 				if trigger and triggerDone == false then
-					trigger()
+					trigger(base.manager)
 					triggerDone = true
 				end
 			end})
@@ -142,7 +159,6 @@ local function generate(options)
 	end
 
 	function base.speak(data, pName, pImage_path, imageYpos, pDuration, pColor, pNeedPrompt, pTrigger)
-		clear()
 		state = STATE_RUNNNING
 		dialogue_source = data
 		needPrompt = pNeedPrompt
@@ -172,7 +188,7 @@ local function generate(options)
 					state = STATE_DONE
 					if trigger and flushout == false then
 						if not needPrompt then
-							trigger()
+							trigger(base.manager)
 							triggerDone = true
 						end
 						showPrompt()
@@ -200,7 +216,7 @@ local function generate(options)
 				state = STATE_DONE
 				if trigger and flushout == false then
 					if not needPrompt then
-						trigger()
+						trigger(base.manager)
 						triggerDone = true
 					end
 					showPrompt()
@@ -214,7 +230,7 @@ local function generate(options)
 
 	function base.next()
 		if trigger and triggerDone == false then
-			trigger()
+			trigger(base.manager)
 		end
 	end
 

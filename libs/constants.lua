@@ -11,4 +11,11 @@ return {
 	imagePath = "assets/images/",
 	imageDotPath = "assets.images.",
 
+	role_player = "player",
+	role_enemy = "enemy",
+	role_npc = "npc",
+	role_item = "item",
+
+	scenario_hello = 1,
+
 }

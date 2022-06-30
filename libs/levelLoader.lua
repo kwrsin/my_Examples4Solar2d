@@ -50,11 +50,11 @@ local function createTile(group, tilesets, gid, x, y, layerIndex, manager)
 	end
 
 	if gid == 256 + 0 + 1 then
-		redHeadGenerate({group=group, x=x, y=y, manager=manager, disabled=true})
+		redHeadGenerate({group=group, x=x, y=y, manager=manager, disabled=true, scenario_index=1})
 	elseif gid == 256 + 2 + 1 then
 		reibaishiGenerate({group=group, x=x, y=y, manager=manager, disabled=true, isPlayer=true})
 	elseif gid == 183 + 1 then
-		goalGenerate(tilesets[gid], lid, {group=group, x=x, y=y, manager=manager})
+		goalGenerate(tilesets[gid], lid, {group=group, x=x, y=y, manager=manager, role=const.role_item})
 	elseif gid == 64 + 1 then
 		createAWall()
 	else

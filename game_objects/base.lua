@@ -13,7 +13,13 @@ local function generate(options)
 			base.manager = base.options.manager
 			base.isPlayer = base.options.isPlayer or false
 			base.disabled = base.options.disabled or false
-			base.group = base.options.group			
+			base.group = base.options.group
+			if base.isPlayer then
+				base.root._role = const.role_player
+			else
+				base.root._role = base.options.role or const.role_npc	
+			end
+			base.root._scenario_index = base.options.scenario_index
 		end
 		base.setup()
 	end

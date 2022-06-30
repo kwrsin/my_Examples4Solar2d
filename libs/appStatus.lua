@@ -9,5 +9,8 @@ end
 function appStatus.setController(controller)
 	appStatus.controller = controller
 end
+function appStatus.setDialogue(dialogue)
+	appStatus.dialogue = dialogue
+end
 
 return appStatus
