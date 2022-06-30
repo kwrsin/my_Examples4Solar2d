@@ -39,7 +39,6 @@ local function clear()
 	if name then
 		name.text = ''
 	end
-	image_path = ''
 	duration = 100
 	textColor = {255, 255, 255}
 	singal = nil
@@ -132,13 +131,17 @@ local function generate(options)
 		if name.text ~= pName then
 			name.text = ''
 		end
-		removeImage()
 		if pImage_path and image_path ~= pImage_path then
+			removeImage()
 			image = display.newImage( base.root, pImage_path)
 			image.y = imageYpos
 			image.alpha = 0
 			image_path = pImage_path
 			transition.to( image, {alpha=1.0, time=500, iterations=1} )
+		elseif pImage_path and image_path == pImage_path then
+			image.alpha = 1.0
+		elseif not pImage_path then
+			removeImage()			
 		end
 		if pName == name then
 			base.speak(data, pName, pImage_path, imageYpos, pDuration, pColor, pNeedPrompt, pTrigger)
@@ -158,10 +161,7 @@ local function generate(options)
 					triggerDone = true
 				end
 			end})
-		transition.to(image, {time=500, alpha=0, iterations=1, 
-			onComplete=function()
-				removeImage()
-			end})
+		transition.to(image, {time=500, alpha=0, iterations=1})
 		hidePrompt()
 	end
 
