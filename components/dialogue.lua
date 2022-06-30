@@ -128,7 +128,10 @@ local function generate(options)
 
 	function base.show(data, pName, pImage_path, imageYpos, pDuration, pColor, pNeedPrompt, pTrigger)
 		needPrompt = pNeedPrompt
-		clear()
+		text.text = ''
+		if name.text ~= pName then
+			name.text = ''
+		end
 		removeImage()
 		if pImage_path and image_path ~= pImage_path then
 			image = display.newImage( base.root, pImage_path)
@@ -137,10 +140,14 @@ local function generate(options)
 			image_path = pImage_path
 			transition.to( image, {alpha=1.0, time=500, iterations=1} )
 		end
-		transition.scaleTo(container, {time=500, yScale=1.0, alpha=1, iterations=1, transition=easing.outElastic,
-			onComplete=function()
-				base.speak(data, pName, pImage_path, imageYpos, pDuration, pColor, pNeedPrompt, pTrigger)
-			end})
+		if pName == name then
+			base.speak(data, pName, pImage_path, imageYpos, pDuration, pColor, pNeedPrompt, pTrigger)
+		else
+			transition.scaleTo(container, {time=500, yScale=1.0, alpha=1, iterations=1, transition=easing.outElastic,
+				onComplete=function()
+					base.speak(data, pName, pImage_path, imageYpos, pDuration, pColor, pNeedPrompt, pTrigger)
+				end})
+		end
 	end
 
 	function base.hide()
@@ -159,6 +166,7 @@ local function generate(options)
 	end
 
 	function base.speak(data, pName, pImage_path, imageYpos, pDuration, pColor, pNeedPrompt, pTrigger)
+		clear()
 		state = STATE_RUNNNING
 		dialogue_source = data
 		needPrompt = pNeedPrompt
@@ -224,7 +232,15 @@ local function generate(options)
 				flushout = true
 			end
 		elseif state == STATE_DONE then
+			if not needPrompt then
 			 base.hide()
+			else
+				if trigger and triggerDone == false then
+					trigger(base.manager)
+					triggerDone = true
+				end
+				hidePrompt()				
+			end
 		end
 	end
 
