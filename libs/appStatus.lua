@@ -12,5 +12,8 @@ end
 function appStatus.setDialogue(dialogue)
 	appStatus.dialogue = dialogue
 end
+function appStatus.setUI( ui )
+	appStatus.ui = ui
+end
 
 return appStatus

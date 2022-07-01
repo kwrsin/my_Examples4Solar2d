@@ -191,7 +191,7 @@ local function generate(options)
 				dialogue = dialogue .. dialogue_array[dialogue_counter]
 				dialogue_counter = dialogue_counter + 1
 				text.text = dialogue
-				-- play a sound
+				-- TODO: play a sound
 				if isEndDialogue() then
 					state = STATE_DONE
 					if trigger and flushout == false then

@@ -3,6 +3,7 @@ local appStatus = require("libs.appStatus")
 local inspect = require("libs.inspect")
 local controllerGenerate = require('components.controllerBase')
 local dialogueGenerate = require('components.dialogue')
+local uiGenerator = require('components.ui')
 
 local const = require('libs.constants')
 
@@ -18,7 +19,17 @@ local controller = controllerGenerate()
 display.getCurrentStage():insert( controller.root )
 appStatus.setController(controller)
 
+local ui = uiGenerator({x=const.cx, y=const.cy})
+display.getCurrentStage():insert( ui.root )
+appStatus.setUI(ui)
+
 appStatus.setPath('assets.levels.level01')
 
 composer.gotoScene( 'scenes.title' )
+
+
+
+
+
 -- composer.gotoScene( 'scenes.tests.chatScene' )
+-- composer.gotoScene( 'scenes.tests.uiScene' )
