@@ -36,7 +36,7 @@ end
 	Add Actors
 	Don't forget a "return" after actor createing.
 --]]
-local function createTile(group, tilesets, gid, x, y, layerIndex, manager)
+local function createTile(group, tilesets, gid, x, y, layerIndex)
 	function localIndex()
 		return gid - 256 * (layerIndex - 1)
 	end
@@ -50,11 +50,11 @@ local function createTile(group, tilesets, gid, x, y, layerIndex, manager)
 	end
 
 	if gid == 256 + 0 + 1 then
-		redHeadGenerate({group=group, x=x, y=y, manager=manager, disabled=true, scenario_index=1})
+		redHeadGenerate({group=group, x=x, y=y, disabled=true, scenario_index=1})
 	elseif gid == 256 + 2 + 1 then
-		reibaishiGenerate({group=group, x=x, y=y, manager=manager, disabled=true, isPlayer=true})
+		reibaishiGenerate({group=group, x=x, y=y, disabled=true, isPlayer=true})
 	elseif gid == 183 + 1 then
-		goalGenerate(tilesets[gid], lid, {group=group, x=x, y=y, manager=manager, role=const.role_item})
+		goalGenerate(tilesets[gid], lid, {group=group, x=x, y=y, role=const.role_item})
 	elseif gid == 64 + 1 then
 		createAWall()
 	else
@@ -62,10 +62,10 @@ local function createTile(group, tilesets, gid, x, y, layerIndex, manager)
 	end
 end
 
-local function load(sceneGroup, manager)
+local function load(sceneGroup)
 	local camera = perspective.createView()
 	sceneGroup:insert(camera)
-	manager.setCamera(camera)
+	appStatus.manager.setCamera(camera)
 	
 	local level_path = appStatus.level_path
 	local level = require(level_path)
@@ -85,8 +85,7 @@ local function load(sceneGroup, manager)
 						gid,
 						(col - 1) * tilewidth + tilewidth / 2,
 						(row - 1) * tileheight + tileheight / 2,
-						i,
-						manager)
+						i)
 				end
 				index = index + 1
 			end
@@ -94,12 +93,12 @@ local function load(sceneGroup, manager)
 		camera:add(layerGroup, -i + 3) 
 	end
 	
-	local banner = bannerGenerate({x=const.cx, y=const.cy, ready='assets/images/banners/ready.png', go='assets/images/banners/go.png', manager=manager})
-	manager.setBanner(banner)
+	local banner = bannerGenerate({x=const.cx, y=const.cy, ready='assets/images/banners/ready.png', go='assets/images/banners/go.png'})
+	appStatus.manager.setBanner(banner)
 	sceneGroup:insert(banner.root)
 
-	local gameover = gameoverGenerate({x=const.cx, y=0 - 200, manager=manager})
-	manager.setGameOver(gameover)
+	local gameover = gameoverGenerate({x=const.cx, y=0 - 200})
+	appStatus.manager.setGameOver(gameover)
 	sceneGroup:insert(gameover.root)
 		
 	
@@ -109,9 +108,7 @@ local function load(sceneGroup, manager)
 	camera.damping = 10
 	camera:track()
 
-	appStatus.controller.setManager(manager)
-	
-  manager.setWorldBoundary(worldWidth, worldHeight)
+  appStatus.manager.setWorldBoundary(worldWidth, worldHeight)
 end
 
 

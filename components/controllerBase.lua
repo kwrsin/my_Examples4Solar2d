@@ -1,5 +1,6 @@
 local const = require('libs.constants')
 local generatorBase = require('game_objects.base')
+local appStatus = require('libs.appStatus')
 local cur = nil
 local btnA = nil
 local btnB = nil
@@ -118,25 +119,19 @@ local function generator(options)
 	base.btnBGroup = buttonB(base.root, radiusBtnB, 280, const.height - radiusBtnB)
 	
 	function base:enterFrame(event)
-		if base.manager == nil then return end
-		if base.manager.player.disabled == true then return end
+		if appStatus.manager == nil then return end
+		if appStatus.manager.player.disabled == true then return end
 		if cur == nil and btnA == nil and btnB == nil then
-			base.manager.setButtonStatus(nil)
+			appStatus.manager.setButtonStatus(nil)
 			return
 		end
-		base.manager.setButtonStatus({cur=cur, btnA=btnA, btnB=btnB})
+		appStatus.manager.setButtonStatus({cur=cur, btnA=btnA, btnB=btnB})
 	end
 	function base.startEnterFrame()
 		Runtime:addEventListener( 'enterFrame', base )
 	end
 	function base.stopEnterFrame()
 		Runtime:removeEventListener( 'enterFrame', base )
-	end
-	function base.setManager(manager)
-		if manager then
-			base.manager = manager
-			base.manager.controller = base
-		end
 	end
 	function base.show()
 		transition.moveTo( base.root, {y=0, time=500, transition=easing.outBounce, onComplete=function()
@@ -159,7 +154,6 @@ local function generator(options)
 		base.root.y = originTopLeft.y
 	end
 
-	base.setManager(manager)
 	return base
 end
 

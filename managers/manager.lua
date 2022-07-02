@@ -116,7 +116,7 @@ function manager.start()
 	physics.start(true)
 	-- physics.setDrawMode( "hybrid" ) 
 	manager.resetAllGameObjects()
-	manager.controller.show()
+	appStatus.controller.show()
 	manager.banner.start(
 	function()
 		manager.playGame()
@@ -124,7 +124,7 @@ function manager.start()
 end
 
 function manager.stop()
-	manager.controller.hide()
+	appStatus.controller.hide()
 	manager.stopActors()
 	manager.gameover.start(
 		function()
@@ -136,7 +136,6 @@ function manager.runScenario( scenario_index, playNumber )
 	if not playNumber or playNumber < 0 then playNumber = 1 end
 	manager.ui_mode = true
 	local scenario = require(scenarioIndice[scenario_index])
-	appStatus.dialogue.setManager(manager)
 	appStatus.dialogue.show2(scenario.sentences[playNumber])
 end
 

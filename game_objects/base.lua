@@ -1,5 +1,6 @@
 -- base.lua
 local const = require('libs.constants')
+local appStatus = require('libs.appStatus')
 
 local function generate(options)
 	local base  = {}
@@ -10,7 +11,6 @@ local function generate(options)
 			end
 			base.root.x = base.options.x
 			base.root.y = base.options.y
-			base.manager = base.options.manager
 			base.isPlayer = base.options.isPlayer or false
 			base.disabled = base.options.disabled or false
 			base.group = base.options.group
@@ -34,6 +34,7 @@ local function generate(options)
 	if base.group then
 		base.group:insert(base.root)
 	end
+	base.manager = appStatus.manager
 	base.setup()
 	return base
 end

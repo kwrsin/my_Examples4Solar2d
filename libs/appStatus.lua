@@ -15,5 +15,12 @@ end
 function appStatus.setUI( ui )
 	appStatus.ui = ui
 end
+function appStatus.setManager(manager)
+	appStatus.manager = manager
+	if appStatus.controller then
+		appStatus.manager.controller = appStatus.controller
+	end
+end
+
 
 return appStatus

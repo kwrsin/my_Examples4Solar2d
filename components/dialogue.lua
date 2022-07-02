@@ -108,10 +108,6 @@ local function generate(options)
 	name.anchorX = 1
 	createPrompt( base.root )
 
-	function base.setManager(manager)
-		base.manager = manager
-	end
-	
 	function base.show2(options)
 		base.show(
 			options.data, 
@@ -157,7 +153,7 @@ local function generate(options)
 		transition.scaleTo(container, {time=500, yScale=0.1, alpha=0, iterations=1, 
 			onComplete=function()
 				if trigger and triggerDone == false then
-					trigger(base.manager)
+					trigger()
 					triggerDone = true
 				end
 			end})
@@ -196,7 +192,7 @@ local function generate(options)
 					state = STATE_DONE
 					if trigger and flushout == false then
 						if not needPrompt then
-							trigger(base.manager)
+							trigger()
 							triggerDone = true
 						end
 						showPrompt()
@@ -224,7 +220,7 @@ local function generate(options)
 				state = STATE_DONE
 				if trigger and flushout == false then
 					if not needPrompt then
-						trigger(base.manager)
+						trigger()
 						triggerDone = true
 					end
 					showPrompt()
@@ -236,7 +232,7 @@ local function generate(options)
 			 base.hide()
 			else
 				if trigger and triggerDone == false then
-					trigger(base.manager)
+					trigger()
 					triggerDone = true
 				end
 				hidePrompt()				
@@ -246,7 +242,7 @@ local function generate(options)
 
 	function base.next()
 		if trigger and triggerDone == false then
-			trigger(base.manager)
+			trigger()
 		end
 	end
 

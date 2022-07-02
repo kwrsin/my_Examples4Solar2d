@@ -6,6 +6,7 @@ local dialogueGenerate = require('components.dialogue')
 local uiGenerator = require('components.ui')
 
 local const = require('libs.constants')
+local manager = require('managers.manager')
 
 function DEBUG(obj)
 	print(inspect(obj))
@@ -22,6 +23,8 @@ appStatus.setController(controller)
 local ui = uiGenerator({x=const.cx, y=const.cy})
 display.getCurrentStage():insert( ui.root )
 appStatus.setUI(ui)
+
+appStatus.setManager(manager)
 
 appStatus.setPath('assets.levels.level01')
 

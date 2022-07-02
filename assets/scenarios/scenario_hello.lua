@@ -12,10 +12,8 @@ M.sentences = {
 		duration = 100,
 		color = nil,
 		needPrompt = true,
-		trigger = function(manager)
-			if manager then
-				manager.runScenario( const.scenario_hello, 2 )
-			end
+		trigger = function()
+			appStatus.manager.runScenario( const.scenario_hello, 2 )
 		end
 	},
 	{
@@ -26,16 +24,14 @@ M.sentences = {
 		duration = 100,
 		color = nil,
 		needPrompt = false,
-		trigger = function(manager)
-			if manager then
-				appStatus.ui.confirm(function(value)
-					if value == 'no' then
-						manager.runScenario( const.scenario_hello, 3 )
-					else
-						manager.runScenario( const.scenario_hello, 4 )
-					end					
-				end)
-			end
+		trigger = function()
+			appStatus.ui.confirm(function(value)
+				if value == 'no' then
+					appStatus.manager.runScenario( const.scenario_hello, 3 )
+				else
+					appStatus.manager.runScenario( const.scenario_hello, 4 )
+				end					
+			end)
 		end
 	},
 	{
@@ -46,13 +42,11 @@ M.sentences = {
 		duration = 100,
 		color = nil,
 		needPrompt = false,
-		trigger = function(manager)
-			if manager then
-				manager.ui_mode = false
-				timer.performWithDelay( 1000, function(event)
-					appStatus.dialogue.flush()
-				end )
-			end
+		trigger = function()
+			appStatus.manager.ui_mode = false
+			timer.performWithDelay( 1000, function(event)
+				appStatus.dialogue.flush()
+			end )
 		end
 	},
 	{
@@ -63,14 +57,12 @@ M.sentences = {
 		duration = 100,
 		color = nil,
 		needPrompt = true,
-		trigger = function(manager)
-			if manager then
-				manager.runScenario( const.scenario_hello, 1 )
-				-- manager.ui_mode = false
-				-- timer.performWithDelay( 1000, function(event)
-				-- 	appStatus.dialogue.flush()
-				-- end )
-			end
+		trigger = function()
+			appStatus.manager.runScenario( const.scenario_hello, 1 )
+			-- manager.ui_mode = false
+			-- timer.performWithDelay( 1000, function(event)
+			-- 	appStatus.dialogue.flush()
+			-- end )
 		end
 	},
 }
