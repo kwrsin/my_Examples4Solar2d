@@ -9,6 +9,8 @@ local reibaishiGenerate = require('game_objects.actors.reibaishi')
 local reibaishiGenerate = require('game_objects.actors.reibaishi')
 local goalGenerate = require('game_objects.doors.goal')
 local physics = require('physics')
+local level
+local localIndice
 
 local function imageSheet(tileset)
 	return graphics.newImageSheet( const.tilesetPath .. tileset.image, {
@@ -67,35 +69,49 @@ end
 
 local function loadTiles(tilesets)
 	local tilesetList = {}
-	for i, tileset in ipairs(tilesets) do
+	for _, tileset in ipairs(tilesets) do
 		local firstgid = tileset.firstgid
 		local is = imageSheet(tileset)
 		for i = 1, tileset.tilecount do
-			tilesetList[firstgid + i -1] = is
+			local data = {}
+			data.imageSheet = is
+			data.lid = i
+			tilesetList[firstgid + i -1] = data
 		end
 	end
 	return tilesetList
 end
 
 --[[
-	Add Actors
+	Add Actors and Obstacles
 	Don't forget a "return" after actor createing.
 --]]
-local function createTile(group, tilesets, gid, x, y, colliders)
+local function createTile(group, tilesetData, gid, x, y, colliders)
 	function localIndex()
-		-- FIXME:
+		local baseNumber = 0
+		for _, tileset in ipairs(tilesets) do
+			if baseNumber < gid then
+				baseNumber = tileset.tilecount + baseNumber
+			end
+		end
+
+		-- local idx = 1
+		-- repeat 
+		-- 		baseNumber = tilesets[idx].firstgid - 1
+		-- 		idx = idx + 1
+		-- until tilesets[idx].firstgid < gid
 		return gid % 256
 	end
-	local lid = localIndex()
+	local lid = tilesetData[gid].lid
 	function createATile()
-		display.newImage(group, tilesets[gid], lid, x, y)
+		display.newImage(group, tilesetData[gid].imageSheet, lid, x, y)
 	end
 	function createAWall()
-		local aWall = display.newImage(group, tilesets[gid], lid, x, y)
+		local aWall = display.newImage(group, tilesetData[gid].imageSheet, lid, x, y)
 		physics.addBody(aWall, 'static', {})
 	end
 	function createAWallWithPolygon()
-		local aWall = display.newImage(group, tilesets[gid], lid, x, y)
+		local aWall = display.newImage(group, tilesetData[gid].imageSheet, lid, x, y)
 		local gidCollider = colliders[gid]
 		local multiCollider = {}
 		for _, collider in ipairs(gidCollider) do
@@ -114,7 +130,7 @@ local function createTile(group, tilesets, gid, x, y, colliders)
 	elseif gid == 256 + 2 + 1 then
 		reibaishiGenerate({group=group, x=x, y=y, disabled=true, isPlayer=true})
 	elseif gid == 183 + 1 then
-		goalGenerate(tilesets[gid], lid, {group=group, x=x, y=y, role=const.role_item})
+		goalGenerate(tilesetData[gid].imageSheet, lid, {group=group, x=x, y=y, role=const.role_item})
 	elseif gid == 64 + 1 then
 		createAWall()
 	else
@@ -128,8 +144,8 @@ local function load(sceneGroup)
 	appStatus.manager.setCamera(camera)
 	
 	local level_path = appStatus.level_path
-	local level = require(level_path)
-	local tilesets = loadTiles(level.tilesets)
+	level = require(level_path)
+	local tilesetData = loadTiles(level.tilesets)
 	local colliders = loadColliders(level.tilesets)
 	local tilewidth = level.tilewidth
 	local tileheight = level.tileheight
@@ -144,7 +160,7 @@ local function load(sceneGroup)
 					if gid > 0 then
 						createTile( 
 							layerGroup, 
-							tilesets, 
+							tilesetData, 
 							gid,
 							(col - 1) * tilewidth + tilewidth / 2,
 							(row - 1) * tileheight + tileheight / 2,
@@ -160,7 +176,7 @@ local function load(sceneGroup)
 				local gid = object.gid
 				createTile( 
 					layerGroup, 
-					tilesets, 
+					tilesetData, 
 					gid,
 					object.x + object.width / 2,
 					object.y - object.height / 2,
