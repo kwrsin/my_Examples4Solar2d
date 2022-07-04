@@ -20,7 +20,7 @@ local function imageSheet(tileset)
 		} )
 end
 
-local function multiPolygon(tileset)
+local function multiPolygon(tileset, width, height)
 	local meshList = {}
 	local tiles = tileset.tiles
 	if tiles and #tiles > 0 then
@@ -35,8 +35,8 @@ local function multiPolygon(tileset)
 					if object.shape == 'polygon' and #object.polygon > 0 then
 						local vertexList = {}
 						for k, vertex in ipairs(object.polygon) do
-							vertexList[#vertexList + 1] = vertex.x - object.x
-							vertexList[#vertexList + 1] = vertex.y - object.y
+							vertexList[#vertexList + 1] = vertex.x - width / 2 + object.x
+							vertexList[#vertexList + 1] = vertex.y - height / 2 + object.y
 						end
 						colliderList[#colliderList + 1] = vertexList
 					elseif object.shape == 'rectangle' then
@@ -57,7 +57,7 @@ end
 local function loadColliders(tilesets)
 	local mpList = {}
 	for i, tileset in ipairs(tilesets) do
-		local mpvalues = multiPolygon(tileset)
+		local mpvalues = multiPolygon(tileset, tileset.tilewidth, tileset.tileheight)
 		for j, mp in ipairs(mpvalues) do
 			mpList[mp.gid] = mp.colliderList
 		end
@@ -83,6 +83,7 @@ end
 --]]
 local function createTile(group, tilesets, gid, x, y, colliders)
 	function localIndex()
+		-- FIXME:
 		return gid % 256
 	end
 	local lid = localIndex()
@@ -96,12 +97,17 @@ local function createTile(group, tilesets, gid, x, y, colliders)
 	function createAWallWithPolygon()
 		local aWall = display.newImage(group, tilesets[gid], lid, x, y)
 		local gidCollider = colliders[gid]
+		local multiCollider = {}
 		for _, collider in ipairs(gidCollider) do
-			physics.addBody(aWall, 'static', {shape=collider})
+			multiCollider[#multiCollider + 1] = {shape=collider}
 		end
+		-- https://stackoverflow.com/questions/14474206/is-there-a-lua-equivalent-of-javascripts-apply
+		physics.addBody(aWall, 'static', unpack(multiCollider))
 	end
 
-	if gid == 256 + 3 + 1 then
+	if gid == 256 + 60 + 0 + 1 then
+		createAWallWithPolygon()
+	elseif gid == 256 + 3 + 1 then
 		createAWallWithPolygon()
 	elseif gid == 256 + 0 + 1 then
 		redHeadGenerate({group=group, x=x, y=y, disabled=true, scenario_index=const.scenario_hello})
@@ -131,6 +137,7 @@ local function load(sceneGroup)
 		local index = 1
 		local layerGroup = display.newGroup()
 		if layer.type == const.layerType_tile then
+			-- TILE LAYER
 			for row = 1, layer.height do
 				for col = 1, layer.width do
 					local gid = layer.data[index]
@@ -147,9 +154,20 @@ local function load(sceneGroup)
 				end
 			end
 		elseif layer.type == const.layerType_object then
-
+		-- OBJECT LAYER
+			local objects = layer.objects
+			for _, object in ipairs(objects) do
+				local gid = object.gid
+				createTile( 
+					layerGroup, 
+					tilesets, 
+					gid,
+					object.x + object.width / 2,
+					object.y - object.height / 2,
+					colliders)
+			end	
 		end
-		camera:add(layerGroup, -i + 3) 
+		camera:add(layerGroup, -i + #level.layers + 4) 
 	end
 	
 	local banner = bannerGenerate({x=const.cx, y=const.cy, ready='assets/images/banners/ready.png', go='assets/images/banners/go.png'})

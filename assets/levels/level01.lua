@@ -8,8 +8,8 @@ return {
   height = 20,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 3,
-  nextobjectid = 1,
+  nextlayerid = 7,
+  nextobjectid = 5,
   properties = {},
   tilesets = {
     {
@@ -105,20 +105,84 @@ return {
                 name = "",
                 type = "",
                 shape = "polygon",
-                x = 7.97448,
-                y = 19.4577,
+                x = 8.55861,
+                y = 19.5395,
                 width = 0,
                 height = 0,
                 rotation = 0,
                 visible = true,
                 polygon = {
                   { x = 0, y = 0 },
-                  { x = 4.40191, y = -5.10367 },
-                  { x = 12.9506, y = -5.35885 },
-                  { x = 14.5455, y = -3.0622 },
-                  { x = 14.5455, y = 1.33971 },
-                  { x = 10.7815, y = 4.5933 },
-                  { x = 3.82775, y = 4.52951 }
+                  { x = 4.36005, y = -5.32895 },
+                  { x = 11.1423, y = -5.00598 },
+                  { x = 14.2105, y = -1.77632 },
+                  { x = 13.4031, y = 1.29187 },
+                  { x = 10.012, y = 4.52153 },
+                  { x = 2.42225, y = 4.19856 }
+                },
+                properties = {}
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      name = "target",
+      firstgid = 317,
+      tilewidth = 81,
+      tileheight = 81,
+      spacing = 0,
+      margin = 0,
+      columns = 1,
+      image = "target.png",
+      imagewidth = 81,
+      imageheight = 81,
+      objectalignment = "unspecified",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 81,
+        height = 81
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 1,
+      tiles = {
+        {
+          id = 0,
+          objectGroup = {
+            type = "objectgroup",
+            draworder = "index",
+            id = 2,
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            parallaxx = 1,
+            parallaxy = 1,
+            properties = {},
+            objects = {
+              {
+                id = 3,
+                name = "",
+                type = "",
+                shape = "polygon",
+                x = 0.807416,
+                y = 41.1782,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polygon = {
+                  { x = 0, y = 0 },
+                  { x = 39.4019, y = -40.6938 },
+                  { x = 79.6112, y = -0.161483 },
+                  { x = 39.7249, y = 39.2404 }
                 },
                 properties = {}
               }
@@ -205,6 +269,35 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 6,
+      name = "obstacles",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 4,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 141.783,
+          y = 367.427,
+          width = 81,
+          height = 81,
+          rotation = 0,
+          gid = 317,
+          visible = true,
+          properties = {}
+        }
       }
     }
   }

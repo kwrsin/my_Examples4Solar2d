@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="5">
  <editorsettings>
   <export target="level01.lua" format="lua"/>
  </editorsettings>
@@ -13,8 +13,18 @@
     <object id="1" x="9.05901" y="7.59171">
      <polygon points="0,0 3.18979,-4.52951 9.76077,-4.14673 13.4609,-0.0637959 12.6954,3.25359 10.0797,5.80542 3.50877,5.93301"/>
     </object>
-    <object id="2" x="7.97448" y="19.4577">
-     <polygon points="0,0 4.40191,-5.10367 12.9506,-5.35885 14.5455,-3.0622 14.5455,1.33971 10.7815,4.5933 3.82775,4.52951"/>
+    <object id="2" x="8.55861" y="19.5395">
+     <polygon points="0,0 4.36005,-5.32895 11.1423,-5.00598 14.2105,-1.77632 13.4031,1.29187 10.012,4.52153 2.42225,4.19856"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="317" name="target" tilewidth="81" tileheight="81" tilecount="1" columns="1">
+  <image source="target.png" width="81" height="81"/>
+  <tile id="0">
+   <objectgroup draworder="index" id="2">
+    <object id="3" x="0.807416" y="41.1782">
+     <polygon points="0,0 39.4019,-40.6938 79.6112,-0.161483 39.7249,39.2404"/>
     </object>
    </objectgroup>
   </tile>
@@ -67,4 +77,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="6" name="obstacles">
+  <object id="4" gid="317" x="141.783" y="367.427" width="81" height="81"/>
+ </objectgroup>
 </map>

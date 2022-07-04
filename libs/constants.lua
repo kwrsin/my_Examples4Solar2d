@@ -13,7 +13,7 @@ return {
 	imagePath = "assets/images/",
 	imageDotPath = "assets.images.",
 	layerType_tile = 'tilelayer',
-	layerType_object = 'objectlayer',
+	layerType_object = 'objectgroup',
 
 	-- actor's role
 	role_player = "player",
