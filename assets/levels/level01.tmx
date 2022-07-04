@@ -78,6 +78,6 @@
 </data>
  </layer>
  <objectgroup id="6" name="obstacles">
-  <object id="4" gid="317" x="141.783" y="367.427" width="81" height="81"/>
+  <object id="4" gid="317" x="105.518" y="249.567" width="81" height="81"/>
  </objectgroup>
 </map>

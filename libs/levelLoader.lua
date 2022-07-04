@@ -87,21 +87,6 @@ end
 	Don't forget a "return" after actor createing.
 --]]
 local function createTile(group, tilesetData, gid, x, y, colliders)
-	function localIndex()
-		local baseNumber = 0
-		for _, tileset in ipairs(tilesets) do
-			if baseNumber < gid then
-				baseNumber = tileset.tilecount + baseNumber
-			end
-		end
-
-		-- local idx = 1
-		-- repeat 
-		-- 		baseNumber = tilesets[idx].firstgid - 1
-		-- 		idx = idx + 1
-		-- until tilesets[idx].firstgid < gid
-		return gid % 256
-	end
 	local lid = tilesetData[gid].lid
 	function createATile()
 		display.newImage(group, tilesetData[gid].imageSheet, lid, x, y)
