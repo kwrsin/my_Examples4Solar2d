@@ -84,7 +84,6 @@ end
 
 --[[
 	Add Actors and Obstacles
-	Don't forget a "return" after actor createing.
 --]]
 local function createTile(group, tilesetData, gid, x, y, colliders)
 	local lid = tilesetData[gid].lid
@@ -123,6 +122,30 @@ local function createTile(group, tilesetData, gid, x, y, colliders)
 	end
 end
 
+function createShapeCollider(group, object)
+	function createShapeGroup()
+		local shapeGroup = display.newGroup()
+		shapeGroup.x = object.x + object.width / 2
+		shapeGroup.y = object.y + object.height / 2
+		group:insert(shapeGroup)
+		return shapeGroup
+	end
+	function createARectCollider()
+		local shape = createShapeGroup()
+		physics.addBody(shape, 'static', {box={halfWidth=object.width / 2, halfHeight=object.height / 2}})
+	end
+	function createAPolygonCollider()
+
+	end
+	-- transparent shape
+	if object.shape == 'rectangle' then
+		createARectCollider()
+	elseif object.shape == 'polygon' then
+		createAPolygonCollider()
+	end
+
+end
+
 local function load(sceneGroup)
 	local camera = perspective.createView()
 	sceneGroup:insert(camera)
@@ -159,13 +182,17 @@ local function load(sceneGroup)
 			local objects = layer.objects
 			for _, object in ipairs(objects) do
 				local gid = object.gid
-				createTile( 
-					layerGroup, 
-					tilesetData, 
-					gid,
-					object.x + object.width / 2,
-					object.y - object.height / 2,
-					colliders)
+				if tilesetData[gid] then
+					createTile( 
+						layerGroup, 
+						tilesetData, 
+						gid,
+						object.x + object.width / 2,
+						object.y - object.height / 2,
+						colliders)
+				else
+					createShapeCollider(layerGroup, object)
+				end
 			end	
 		end
 		camera:add(layerGroup, -i + #level.layers + 4) 
