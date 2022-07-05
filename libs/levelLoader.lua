@@ -153,7 +153,6 @@ function createShapeCollider(group, object)
 		end
 		bondaryWidth = maxPosX - minPosX
 		bondaryHeight = maxPosY - minPosY
-		DEBUG({bondaryWidth, bondaryHeight})
 		object.x = bondaryWidth / 2
 		object.y = bondaryHeight / 2
 		local vertex = toVertex(object, bondaryWidth, bondaryHeight)

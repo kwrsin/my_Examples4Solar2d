@@ -114,7 +114,7 @@ end
 --]]
 function manager.start()
 	physics.start(true)
-	physics.setDrawMode( "hybrid" ) 
+	-- physics.setDrawMode( "hybrid" ) 
 	manager.resetAllGameObjects()
 	appStatus.controller.show()
 	manager.banner.start(
