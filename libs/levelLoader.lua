@@ -9,8 +9,6 @@ local reibaishiGenerate = require('game_objects.actors.reibaishi')
 local reibaishiGenerate = require('game_objects.actors.reibaishi')
 local goalGenerate = require('game_objects.doors.goal')
 local physics = require('physics')
-local level
-local localIndice
 
 local function imageSheet(tileset)
 	return graphics.newImageSheet( const.tilesetPath .. tileset.image, {
@@ -20,6 +18,20 @@ local function imageSheet(tileset)
 			sheetContentWidth = tileset.imagewidth,
 			sheetContentHeight = tileset.imageHeight,
 		} )
+end
+
+local function toVertex(object, width, height)
+		if object.shape == 'polygon' and #object.polygon > 0 then
+			local vertexList = {}
+			for k, vertex in ipairs(object.polygon) do
+				vertexList[#vertexList + 1] = vertex.x - width / 2 + object.x
+				vertexList[#vertexList + 1] = vertex.y - height / 2 + object.y
+			end
+			return vertexList
+		elseif object.shape == 'rectangle' then
+			-- TODO: other shape
+		end
+		return nil
 end
 
 local function multiPolygon(tileset, width, height)
@@ -34,16 +46,7 @@ local function multiPolygon(tileset, width, height)
 				local objects = objectGroup.objects
 				local colliderList = {}
 				for j, object in ipairs(objects) do
-					if object.shape == 'polygon' and #object.polygon > 0 then
-						local vertexList = {}
-						for k, vertex in ipairs(object.polygon) do
-							vertexList[#vertexList + 1] = vertex.x - width / 2 + object.x
-							vertexList[#vertexList + 1] = vertex.y - height / 2 + object.y
-						end
-						colliderList[#colliderList + 1] = vertexList
-					elseif object.shape == 'rectangle' then
-						-- TODO: other shape
-					end
+					colliderList[#colliderList + 1] = toVertex(object, width, height)
 				end
 				mesh.colliderList = colliderList
 
@@ -135,7 +138,27 @@ function createShapeCollider(group, object)
 		physics.addBody(shape, 'static', {box={halfWidth=object.width / 2, halfHeight=object.height / 2}})
 	end
 	function createAPolygonCollider()
+		local shape = createShapeGroup()
+		local maxPosX = 0
+		local minPosX = 0
+		local maxPosY = 0
+		local minPosY = 0
+		local bondaryWidth = 0
+		local boundaryHeight= 0
+		for _, pol in ipairs(object.polygon) do
+			if pol.x > maxPosX then maxPosX = pol.x end
+			if pol.x < minPosX then minPosX = pol.x end
+			if pol.y > maxPosY then maxPosY = pol.y end
+			if pol.y < minPosY then minPosY = pol.y end
+		end
+		bondaryWidth = maxPosX - minPosX
+		bondaryHeight = maxPosY - minPosY
+		DEBUG({bondaryWidth, bondaryHeight})
+		object.x = bondaryWidth / 2
+		object.y = bondaryHeight / 2
+		local vertex = toVertex(object, bondaryWidth, bondaryHeight)
 
+		physics.addBody(shape, 'static', {chain=vertex, connectFirstAndLastChainVertex = true})		
 	end
 	-- transparent shape
 	if object.shape == 'rectangle' then
@@ -152,7 +175,7 @@ local function load(sceneGroup)
 	appStatus.manager.setCamera(camera)
 	
 	local level_path = appStatus.level_path
-	level = require(level_path)
+	local level = require(level_path)
 	local tilesetData = loadTiles(level.tilesets)
 	local colliders = loadColliders(level.tilesets)
 	local tilewidth = level.tilewidth
