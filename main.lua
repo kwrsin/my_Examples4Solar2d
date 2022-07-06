@@ -1,6 +1,8 @@
 local composer = require("composer")
+local const = require("libs.constants")
 local appStatus = require("libs.appStatus")
 local inspect = require("libs.inspect")
+local sounds = require("libs.sounds")
 local controllerGenerate = require('components.controllerBase')
 local dialogueGenerate = require('components.dialogue')
 local uiGenerator = require('components.ui')
@@ -12,6 +14,7 @@ function DEBUG(obj)
 	print(inspect(obj))
 end
 
+-- add componets to appStatus
 local dialogue = dialogueGenerate({x=const.cx, y=const.cy - 100})
 display.getCurrentStage():insert( dialogue.root )
 appStatus.setDialogue(dialogue)
@@ -28,6 +31,10 @@ appStatus.setManager(manager)
 
 appStatus.setPath('assets.levels.level01')
 
+-- add Sound files
+sounds.addBGM(const.bgm)
+sounds.addSE(const.walking)
+
 composer.gotoScene( 'scenes.title' )
 
 
@@ -36,3 +43,5 @@ composer.gotoScene( 'scenes.title' )
 
 -- composer.gotoScene( 'scenes.tests.chatScene' )
 -- composer.gotoScene( 'scenes.tests.uiScene' )
+-- composer.gotoScene( 'scenes.tests.testScene' )
+
