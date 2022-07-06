@@ -2,6 +2,7 @@
 local composer = require('composer')
 
 local const = require('libs.constants')
+local sounds = require('libs.sounds')
 
 local scene = composer.newScene( )
 local buttonGroup
@@ -71,12 +72,15 @@ end
 function scene:show(event)
   local sceneGroup = scene.view
 	if event.phase == 'will' then
+    sounds.rewindBGM(const.bgm)
+    sounds.playBMG(const.bgm)
 	elseif event.phase == 'did' then
 	end
 end
 
 function scene:hide(event)
 	if event.phase == 'will' then
+    sounds.stop()
 	elseif event.phase == 'did' then
 	end
 end

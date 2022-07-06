@@ -113,9 +113,9 @@ local function createTile(group, tilesetData, gid, x, y, colliders)
 	elseif gid == 256 + 3 + 1 then
 		createAWallWithPolygon()
 	elseif gid == 256 + 0 + 1 then
-		redHeadGenerate({group=group, x=x, y=y, disabled=true, scenario_index=const.scenario_hello})
+		redHeadGenerate({group=group, x=x, y=y, disabled=true, isPlayer=true})
 	elseif gid == 256 + 2 + 1 then
-		reibaishiGenerate({group=group, x=x, y=y, disabled=true, isPlayer=true})
+		reibaishiGenerate({group=group, x=x, y=y, disabled=true, scenario_index=const.scenario_hello})
 	elseif gid == 183 + 1 then
 		goalGenerate(tilesetData[gid].imageSheet, lid, {group=group, x=x, y=y, role=const.role_item})
 	elseif gid == 64 + 1 then

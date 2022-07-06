@@ -1,5 +1,5 @@
 -- redHead.lua
-local const require('libs.constants')
+local const = require('libs.constants')
 local actorGenerate = require('game_objects.actors.actorBase')
 local function generate(options)
 	local actorBase = actorGenerate('red_head', options)

@@ -24,4 +24,8 @@ return {
 	-- scenarios
 	scenario_hello = 1,
 
+	-- sound effects
+	bgm = "assets/sounds/idling.mp3",
+	walking = "assets/sounds/player_walking.wav",
+
 }

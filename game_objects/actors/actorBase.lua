@@ -1,5 +1,6 @@
 -- actorBase.lua
 local const = require('libs.constants')
+local sounds = require('libs.sounds')
 local baseGenerate = require('game_objects.base')
 local physics = require 'physics'
 
@@ -65,9 +66,11 @@ local function generate(actorName, options)
 		Runtime:removeEventListener( 'enterFrame', base )
 	end
 	function base.move(deltaX, deltaY)
+		sounds.playSE(const.walking)
 		base.root:translate( deltaX, deltaY )
 	end
 	function base.moveByBoundary(deltaX, deltaY)
+		sounds.playSE(const.walking)
 		local spFulfHeight = base.sprite.height / 2
 		local spFulfWidth = base.sprite.width / 2
 		if deltaY < 0 then
