@@ -7,6 +7,8 @@ return {
 	height = display.contentHeight,
 	actualWidth = display.actualContentWidth,
 	actualHeight = display.actualContentHeight,
+	sox = display.screenOriginX,
+	soy = display.screenOriginY,
 
 	-- tile data
 	tilesetPath = "assets/levels/",
