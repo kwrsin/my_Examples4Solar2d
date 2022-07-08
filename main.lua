@@ -1,6 +1,6 @@
 local composer = require("composer")
 local const = require("customize.constants")
-local appStatus = require("libs.appStatus")
+local appStatus = require("customize.appStatus")
 local inspect = require("libs.inspect")
 local sounds = require("libs.sounds")
 local controllerGenerate = require('components.controllerBase')

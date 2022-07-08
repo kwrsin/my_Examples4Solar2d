@@ -1,5 +1,5 @@
 -- scenario_hello.lua
-local appStatus = require('libs.appStatus')
+local appStatus = require('customize.appStatus')
 local const = require('customize.constants')
 local M = {}
 

@@ -4,7 +4,7 @@ local load = require('customize.loaders.levelLoader')
 local physics = require('physics')
 local composer = require('composer')
 local scenarioIndice = require('assets.scenarios.scenarioIndice')
-local appStatus = require('libs.appStatus')
+local appStatus = require('customize.appStatus')
 
 local pressedCur = false
 local pressedBtnA = false

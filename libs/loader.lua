@@ -1,5 +1,5 @@
 local const = require('customize.constants')
-local appStatus = require('libs.appStatus')
+local appStatus = require('customize.appStatus')
 local perspective = require("components.perspective")
 local physics = require('physics')
 

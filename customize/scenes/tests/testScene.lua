@@ -5,7 +5,7 @@ local redHeadGenerate = require('customize.game_objects.actors.redHead')
 
 local scene = composer.newScene()
 local physics = require('physics')
-local appStatus = require('libs.appStatus')
+local appStatus = require('customize.appStatus')
 
 local player
 
