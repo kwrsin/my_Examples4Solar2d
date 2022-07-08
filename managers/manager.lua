@@ -1,6 +1,6 @@
 -- manager.lua
 local const = require('libs.constants')
-local load = require('loaders.levelLoader')
+local load = require('customize.loaders.levelLoader')
 local physics = require('physics')
 local composer = require('composer')
 local scenarioIndice = require('assets.scenarios.scenarioIndice')
