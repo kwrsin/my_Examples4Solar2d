@@ -127,6 +127,7 @@ end
 function manager.stopEnterFrame()
 	Runtime:removeEventListener( 'enterFrame', enterFrame )
 end
+
 --[[
  GAME SCENARIO
 --]]
@@ -135,7 +136,7 @@ function manager.start()
 	-- physics.setDrawMode( "hybrid" ) 
 	manager.resetAllGameObjects()
 	manager.startEnterFrame()
-	 manager.focusPlayer()
+	manager.focusPlayer()
 
 	appStatus.controller.show()
 	manager.banner.start(
