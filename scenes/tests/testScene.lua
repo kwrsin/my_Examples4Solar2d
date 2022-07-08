@@ -1,7 +1,7 @@
 -- testScene.lua
 local const = require('libs.constants')
 local composer = require('composer')
-local redHeadGenerate = require('game_objects.actors.redHead')
+local redHeadGenerate = require('customize.game_objects.actors.redHead')
 
 local scene = composer.newScene()
 local physics = require('physics')

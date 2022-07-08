@@ -1,24 +1,24 @@
--- redHead.lua
-local const = require('libs.constants')
-local actorGenerate = require('game_objects.actors.actorBase')
+-- reibaishi.lua
+local const require('libs.constants')
+local actorGenerate = require('customize.game_objects.actors.actorBase')
 local function generate(options)
-	local actorBase = actorGenerate('red_head', options)
+	local actorBase = actorGenerate('reibaishi', options)
 
 	function actorBase.up()
-		actorBase.moveByBoundary( 0, -2 )
+		actorBase.moveByBoundary( 0, -4 )
 		actorBase.play('up')
 	end
 	function actorBase.down()
-		actorBase.moveByBoundary( 0, 2 )
+		actorBase.moveByBoundary( 0, 4 )
 		actorBase.play('down')
 	end
 	function actorBase.right()
-		actorBase.moveByBoundary( 2, 0 )
+		actorBase.moveByBoundary( 4, 0 )
 		actorBase.play('right')
 	end
 	function actorBase.left()
-		actorBase.moveByBoundary( -2, 0 )
-		actorBase.play('win')
+		actorBase.moveByBoundary( -4, 0 )
+		actorBase.play('left')
 	end
 	-- override
 	function actorBase.onPressedCur(value)

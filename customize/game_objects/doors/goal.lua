@@ -1,6 +1,6 @@
 -- goal.lua
 local const = require('libs.constants')
-local baseGenerate = require('game_objects.base')
+local baseGenerate = require('customize.game_objects.base')
 local physics = require('physics')
 
 local function generate(tileset, localId, options)

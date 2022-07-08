@@ -3,11 +3,11 @@ local const = require('libs.constants')
 local appStatus = require('libs.appStatus')
 local M = require('libs.loader')
 
-local bannerGenerate = require('game_objects.banners.banner')
-local gameoverGenerate = require('game_objects.banners.gameover')
-local redHeadGenerate = require('game_objects.actors.redHead')
-local reibaishiGenerate = require('game_objects.actors.reibaishi')
-local goalGenerate = require('game_objects.doors.goal')
+local bannerGenerate = require('customize.game_objects.banners.banner')
+local gameoverGenerate = require('customize.game_objects.banners.gameover')
+local redHeadGenerate = require('customize.game_objects.actors.redHead')
+local reibaishiGenerate = require('customize.game_objects.actors.reibaishi')
+local goalGenerate = require('customize.game_objects.doors.goal')
 
 --[[
 	Add Actors and Obstacles

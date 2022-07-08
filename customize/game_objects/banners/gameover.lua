@@ -1,6 +1,6 @@
 -- gameover.lua
 local const = require('libs.constants')
-local baseGenerate = require('game_objects.base')
+local baseGenerate = require('customize.game_objects.base')
 
 local function generate( options )
 	local base = baseGenerate(options)

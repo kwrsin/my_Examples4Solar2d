@@ -1,5 +1,5 @@
 local const = require('libs.constants')
-local generatorBase = require('game_objects.base')
+local generatorBase = require('customize.game_objects.base')
 local appStatus = require('libs.appStatus')
 local cur = nil
 local btnA = nil

@@ -1,6 +1,6 @@
 -- ui.lua
 local const = require('libs.constants')
-local generateBase = require('game_objects.base')
+local generateBase = require('customize.game_objects.base')
 local confirm = require('components.ui.confirm')
 local base
 local body
