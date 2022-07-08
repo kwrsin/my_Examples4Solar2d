@@ -106,7 +106,6 @@ local function generate(actorName, options)
 	end
 	if base.isPlayer then
 		base.manager.setPlayer(base)
-		base.manager.camera:setFocus(base.root)
 	else
 		base.manager.addEnemy(base)
 	end
