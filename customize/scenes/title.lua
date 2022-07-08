@@ -40,7 +40,7 @@ local function createTitle(group)
         if event.phase == "ended" or event.phase == "cancelled"  then
           display.getCurrentStage():setFocus( nil )
           isFocus = nil
-          composer.gotoScene( 'scenes.game' )
+          composer.gotoScene( 'customize.scenes.game' )
         end
       end
     end )

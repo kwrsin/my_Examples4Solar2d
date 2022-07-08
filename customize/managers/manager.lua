@@ -151,7 +151,7 @@ function manager.stop()
 	manager.stopActors()
 	manager.gameover.start(
 		function()
-			composer.gotoScene("scenes.title")
+			composer.gotoScene("customize.scenes.title")
 		end)
 end
 
