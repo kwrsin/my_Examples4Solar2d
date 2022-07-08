@@ -127,15 +127,8 @@ local function generator(options)
 		end
 		appStatus.manager.setButtonStatus({cur=cur, btnA=btnA, btnB=btnB})
 	end
-	function base.startEnterFrame()
-		Runtime:addEventListener( 'enterFrame', base )
-	end
-	function base.stopEnterFrame()
-		Runtime:removeEventListener( 'enterFrame', base )
-	end
 	function base.show()
 		transition.moveTo( base.root, {y=0, time=500, transition=easing.outBounce, onComplete=function()
-				base.startEnterFrame()
 		end})
 	end
 	function releaseAll()
@@ -148,7 +141,6 @@ local function generator(options)
 	end
 	function base.hide()
 		-- transition.moveTo( base.root, {y=offset, time=500} )
-		base.stopEnterFrame()
 		releaseAll()
 		base.root.x = originTopLeft.x
 		base.root.y = originTopLeft.y

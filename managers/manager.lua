@@ -109,6 +109,19 @@ function manager.setCamera(camera)
 	manager.camera = camera
 end
 
+local function enterFrame(event)
+	appStatus.controller:enterFrame(event)
+	for _, actor in ipairs(manager.actors) do
+		actor:enterFrame(event)
+	end
+end
+
+function manager.startEnterFrame()
+	Runtime:addEventListener( 'enterFrame', enterFrame )
+end
+function manager.stopEnterFrame()
+	Runtime:removeEventListener( 'enterFrame', enterFrame )
+end
 --[[
  GAME SCENARIO
 --]]
@@ -116,6 +129,7 @@ function manager.start()
 	physics.start(true)
 	-- physics.setDrawMode( "hybrid" ) 
 	manager.resetAllGameObjects()
+	manager.startEnterFrame()
 	appStatus.controller.show()
 	manager.banner.start(
 	function()
@@ -124,6 +138,7 @@ function manager.start()
 end
 
 function manager.stop()
+	manager.stopEnterFrame()
 	appStatus.controller.hide()
 	manager.stopActors()
 	manager.gameover.start(

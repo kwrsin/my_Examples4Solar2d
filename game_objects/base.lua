@@ -35,7 +35,6 @@ local function generate(options)
 		base.group:insert(base.root)
 	end
 	base.manager = appStatus.manager
-	base.setup()
 	return base
 end
 

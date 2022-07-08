@@ -59,12 +59,6 @@ local function generate(actorName, options)
 			base.waiting()
 		end
 	end
-	function base.startEnterFrame()
-		Runtime:addEventListener( 'enterFrame', base )
-	end
-	function base.stopEnterFrame()
-		Runtime:removeEventListener( 'enterFrame', base )
-	end
 	function base.move(deltaX, deltaY)
 		sounds.playSE(const.walking)
 		base.root:translate( deltaX, deltaY )
@@ -116,7 +110,6 @@ local function generate(actorName, options)
 	else
 		base.manager.addEnemy(base)
 	end
-	base.startEnterFrame()
 	return base
 end
 
