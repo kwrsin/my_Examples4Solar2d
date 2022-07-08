@@ -2,7 +2,7 @@
 local composer = require('composer')
 local scene = composer.newScene( )
 local const = require('libs.constants')
-local manager = require('managers.manager')
+local manager = require('customize.managers.manager')
 
 function scene:create(event)
 	local sceneGroup = scene.view

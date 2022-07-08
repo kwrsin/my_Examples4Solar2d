@@ -8,7 +8,7 @@ local dialogueGenerate = require('components.dialogue')
 local uiGenerator = require('components.ui')
 
 local const = require('libs.constants')
-local manager = require('managers.manager')
+local manager = require('customize.managers.manager')
 
 function DEBUG(obj)
 	print(inspect(obj))
