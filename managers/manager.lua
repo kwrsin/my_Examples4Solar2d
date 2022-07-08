@@ -116,9 +116,14 @@ local function enterFrame(event)
 	end
 end
 
+function manager.focusPlayer()
+	manager.camera:setFocus(manager.player.root)
+end
+
 function manager.startEnterFrame()
 	Runtime:addEventListener( 'enterFrame', enterFrame )
 end
+
 function manager.stopEnterFrame()
 	Runtime:removeEventListener( 'enterFrame', enterFrame )
 end
@@ -130,6 +135,8 @@ function manager.start()
 	-- physics.setDrawMode( "hybrid" ) 
 	manager.resetAllGameObjects()
 	manager.startEnterFrame()
+	 manager.focusPlayer()
+
 	appStatus.controller.show()
 	manager.banner.start(
 	function()
