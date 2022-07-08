@@ -1,7 +1,7 @@
 -- game.lua
 local composer = require('composer')
 local scene = composer.newScene( )
-local const = require('libs.constants')
+local const = require('customize.constants')
 local manager = require('customize.managers.manager')
 
 function scene:create(event)

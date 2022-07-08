@@ -1,5 +1,5 @@
 -- manager.lua
-local const = require('libs.constants')
+local const = require('customize.constants')
 local load = require('customize.loaders.levelLoader')
 local physics = require('physics')
 local composer = require('composer')

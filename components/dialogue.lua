@@ -1,5 +1,5 @@
 -- dialogue.lua
-local const = require('libs.constants')
+local const = require('customize.constants')
 local baseGenerator = require('customize.game_objects.base')
 local utils = require('libs.utils')
 

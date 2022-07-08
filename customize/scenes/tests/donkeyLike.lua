@@ -2,7 +2,7 @@
 
 local composer = require('composer')
 local physics = require('physics')
-local const = require('libs.constants')
+local const = require('customize.constants')
 
 local scene = composer.newScene( )
 

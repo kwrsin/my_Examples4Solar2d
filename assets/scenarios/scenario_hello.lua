@@ -1,6 +1,6 @@
 -- scenario_hello.lua
 local appStatus = require('libs.appStatus')
-local const = require('libs.constants')
+local const = require('customize.constants')
 local M = {}
 
 M.sentences = {

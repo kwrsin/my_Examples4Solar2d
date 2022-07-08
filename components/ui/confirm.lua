@@ -2,7 +2,7 @@
 local sheetData = require('assets.images.ui.buttons.ui').sheetData
 local is = graphics.newImageSheet( 
 	'assets/images/ui/buttons/ui.png', sheetData)
-local const = require('libs.constants')
+local const = require('customize.constants')
 
 local function createFrame(body, width, height)
 	local background = display.newRect( body, 0, 0, const.actualWidth, const.actualHeight )

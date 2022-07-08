@@ -1,5 +1,5 @@
 -- banner.lua
-local const = require('libs.constants')
+local const = require('customize.constants')
 local baseGenerate = require('customize.game_objects.base')
 
 

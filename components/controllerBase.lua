@@ -1,4 +1,4 @@
-local const = require('libs.constants')
+local const = require('customize.constants')
 local generatorBase = require('customize.game_objects.base')
 local appStatus = require('libs.appStatus')
 local cur = nil

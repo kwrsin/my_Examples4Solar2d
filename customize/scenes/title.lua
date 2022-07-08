@@ -1,7 +1,7 @@
 -- title.lua
 local composer = require('composer')
 
-local const = require('libs.constants')
+local const = require('customize.constants')
 local sounds = require('libs.sounds')
 
 local scene = composer.newScene( )

@@ -1,5 +1,5 @@
 -- base.lua
-local const = require('libs.constants')
+local const = require('customize.constants')
 local appStatus = require('libs.appStatus')
 
 local function generate(options)

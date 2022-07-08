@@ -1,5 +1,5 @@
 -- actorBase.lua
-local const = require('libs.constants')
+local const = require('customize.constants')
 local sounds = require('libs.sounds')
 local baseGenerate = require('customize.game_objects.base')
 local physics = require 'physics'

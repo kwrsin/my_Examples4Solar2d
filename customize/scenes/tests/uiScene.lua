@@ -1,7 +1,7 @@
 -- uiScene.lua
 local composer = require('composer')
 local uiGenerator = require('components.ui')
-local const = require('libs.constants')
+local const = require('customize.constants')
 
 local scene = composer.newScene( )
 local ui = uiGenerator({x=const.cx, y=const.cy})

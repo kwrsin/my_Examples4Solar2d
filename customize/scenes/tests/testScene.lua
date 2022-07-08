@@ -1,5 +1,5 @@
 -- testScene.lua
-local const = require('libs.constants')
+local const = require('customize.constants')
 local composer = require('composer')
 local redHeadGenerate = require('customize.game_objects.actors.redHead')
 

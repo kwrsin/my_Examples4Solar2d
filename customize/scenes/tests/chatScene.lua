@@ -1,4 +1,4 @@
-local const = require('libs.constants')
+local const = require('customize.constants')
 local composer = require('composer')
 local dialogueGenerator = require('components.dialogue')
 

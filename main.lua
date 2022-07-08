@@ -1,5 +1,5 @@
 local composer = require("composer")
-local const = require("libs.constants")
+local const = require("customize.constants")
 local appStatus = require("libs.appStatus")
 local inspect = require("libs.inspect")
 local sounds = require("libs.sounds")
@@ -7,7 +7,7 @@ local controllerGenerate = require('components.controllerBase')
 local dialogueGenerate = require('components.dialogue')
 local uiGenerator = require('components.ui')
 
-local const = require('libs.constants')
+local const = require('customize.constants')
 local manager = require('customize.managers.manager')
 
 function DEBUG(obj)

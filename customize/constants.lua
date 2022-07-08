@@ -1,4 +1,4 @@
--- constants.lua
+-- customize.constants.lua
 return {
 	-- contents
 	cx = display.contentCenterX,

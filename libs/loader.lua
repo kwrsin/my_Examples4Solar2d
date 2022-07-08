@@ -1,4 +1,4 @@
-local const = require('libs.constants')
+local const = require('customize.constants')
 local appStatus = require('libs.appStatus')
 local perspective = require("components.perspective")
 local physics = require('physics')
