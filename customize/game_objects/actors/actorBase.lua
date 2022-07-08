@@ -12,6 +12,7 @@ local function generate(actorName, options)
 	local sqOptions = require(const.imageDotPath .. actorName .. ".sequence")
 	local sprite = display.newSprite( base.root, imageSheet, sqOptions )
 	base.sprite = sprite
+	base.thinking = false
 	physics.addBody(base.root, 'dynamic', {friction=0.6, bounce=0.2, density=3, radius=10})
 	base.root.collision = function(self, event)
 		if event.phase == 'began' then
@@ -39,7 +40,12 @@ local function generate(actorName, options)
 		if base.disabled then
 			return
 		end
+		if not base.isPlayer and not base.thinking then
+			base.thinking = true
+			base.think()
+		end
 		-- dead, not ready, 
+		base.update(event)
 
 		-- move, attack
 		if base.buttonStatus then
@@ -96,6 +102,10 @@ local function generate(actorName, options)
 	end
 
 	-- virtual
+	function base.update(event)
+	end
+	function base.think()
+	end
 	function base.onPressedCur(value)
 	end
 	function base.onPressedBtnA(value)
