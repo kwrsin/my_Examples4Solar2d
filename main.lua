@@ -1,5 +1,6 @@
 local composer = require("composer")
 local const = require("customize.constants")
+local utils = require("libs.utils")
 local appStatus = require("customize.appStatus")
 local inspect = require("libs.inspect")
 local sounds = require("libs.sounds")
@@ -11,7 +12,9 @@ local const = require('customize.constants')
 local manager = require('customize.managers.manager')
 
 function DEBUG(obj)
-	print(inspect(obj))
+	if utils.isSimulator() then
+		print(inspect(obj))
+	end
 end
 
 -- add componets to appStatus

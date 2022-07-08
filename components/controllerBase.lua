@@ -1,4 +1,5 @@
 local const = require('customize.constants')
+local utils = require('libs.utils')
 local generatorBase = require('customize.game_objects.base')
 local appStatus = require('customize.appStatus')
 local cur = nil
@@ -110,6 +111,41 @@ local function buttonB(group, radius, x, y)
 	return btnBGroup
 end
 
+-- keyInput
+local function keyInput(event)
+	if appStatus.manager == nil then return end
+	if appStatus.manager.player.disabled == true then return end
+	if event.phase == 'down' then
+		if event.keyName == 'up' then
+			cur = {x=0, y=-1}
+		elseif event.keyName == 'down' then
+			cur = {x=0, y=1}
+		elseif event.keyName == 'left' then
+			cur = {x=-1, y=0}
+		elseif event.keyName == 'right' then
+			cur = {x=1, y=0}
+		elseif event.keyName == 'a' then
+			btnA = {x=0, y=0}
+		elseif event.keyName == 'b' then
+			btnB = {x=0, y=0}
+		end
+	elseif event.phase == 'up' then
+		if event.keyName == 'up' then
+			cur = nil
+		elseif event.keyName == 'down' then
+			cur = nil
+		elseif event.keyName == 'left' then
+			cur = nil
+		elseif event.keyName == 'right' then
+			cur = nil
+		elseif event.keyName == 'a' then
+			btnA = nil
+		elseif event.keyName == 'b' then
+			btnB = nil
+		end
+	end
+end
+
 local function generator(options)
 	local originTopLeft = options or {}
 	originTopLeft.y = originTopLeft.y or 100
@@ -128,6 +164,9 @@ local function generator(options)
 		appStatus.manager.setButtonStatus({cur=cur, btnA=btnA, btnB=btnB})
 	end
 	function base.show()
+		if utils.isSimulator() then
+			Runtime:addEventListener( 'key', keyInput )
+		end
 		transition.moveTo( base.root, {y=0, time=500, transition=easing.outBounce, onComplete=function()
 		end})
 	end
@@ -140,6 +179,9 @@ local function generator(options)
 		btnB = nil
 	end
 	function base.hide()
+		if utils.isSimulator() then
+			Runtime:removeEventListener( 'key', keyInput )
+		end
 		-- transition.moveTo( base.root, {y=offset, time=500} )
 		releaseAll()
 		base.root.x = originTopLeft.x

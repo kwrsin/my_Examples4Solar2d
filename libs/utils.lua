@@ -13,4 +13,8 @@ function M.len(string)
 	return utf8.len(string)
 end
 
+function M.isSimulator()
+	return system.getInfo( "environment" ) == "simulator"
+end
+
 return M
