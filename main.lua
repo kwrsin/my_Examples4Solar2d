@@ -15,25 +15,25 @@ function DEBUG(obj)
 end
 
 -- add componets to appStatus
--- local dialogue = dialogueGenerate({x=const.cx, y=const.cy - 100})
--- display.getCurrentStage():insert( dialogue.root )
--- appStatus.setDialogue(dialogue)
+local dialogue = dialogueGenerate({x=const.cx, y=const.cy - 100})
+display.getCurrentStage():insert( dialogue.root )
+appStatus.setDialogue(dialogue)
 
--- local controller = controllerGenerate()
--- display.getCurrentStage():insert( controller.root )
--- appStatus.setController(controller)
+local controller = controllerGenerate()
+display.getCurrentStage():insert( controller.root )
+appStatus.setController(controller)
 
--- local ui = uiGenerator({x=const.cx, y=const.cy})
--- display.getCurrentStage():insert( ui.root )
--- appStatus.setUI(ui)
+local ui = uiGenerator({x=const.cx, y=const.cy})
+display.getCurrentStage():insert( ui.root )
+appStatus.setUI(ui)
 
--- appStatus.setManager(manager)
+appStatus.setManager(manager)
 
--- appStatus.setPath('assets.levels.level01')
+appStatus.setPath('assets.levels.level01')
 
--- -- add Sound files
--- sounds.addBGM(const.bgm)
--- sounds.addSE(const.walking)
+-- add Sound files
+sounds.addBGM(const.bgm)
+sounds.addSE(const.walking)
 
--- composer.gotoScene( 'scenes.title' )
-composer.gotoScene( 'scenes.tests.donkeyLike' )
+composer.gotoScene( 'scenes.title' )
+-- composer.gotoScene( 'scenes.tests.donkeyLike' )
