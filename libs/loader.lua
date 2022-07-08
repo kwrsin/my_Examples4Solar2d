@@ -1,14 +1,9 @@
 local const = require('libs.constants')
 local appStatus = require('libs.appStatus')
 local perspective = require("components.perspective")
-local bannerGenerate = require('game_objects.banners.banner')
-local gameoverGenerate = require('game_objects.banners.gameover')
-
-local redHeadGenerate = require('game_objects.actors.redHead')
-local reibaishiGenerate = require('game_objects.actors.reibaishi')
-local reibaishiGenerate = require('game_objects.actors.reibaishi')
-local goalGenerate = require('game_objects.doors.goal')
 local physics = require('physics')
+
+local M = {}
 
 local function imageSheet(tileset)
 	return graphics.newImageSheet( const.tilesetPath .. tileset.image, {
@@ -85,46 +80,6 @@ local function loadTiles(tilesets)
 	return tilesetList
 end
 
---[[
-	Add Actors and Obstacles
---]]
-local function createTile(group, tilesetData, gid, x, y, colliders)
-	local lid = tilesetData[gid].lid
-	function createATile()
-		display.newImage(group, tilesetData[gid].imageSheet, lid, x, y)
-	end
-	function createAWall()
-		local aWall = display.newImage(group, tilesetData[gid].imageSheet, lid, x, y)
-		physics.addBody(aWall, 'static', {})
-	end
-	function createAWallWithPolygon()
-		local aWall = display.newImage(group, tilesetData[gid].imageSheet, lid, x, y)
-		local gidCollider = colliders[gid]
-		local multiCollider = {}
-		for _, collider in ipairs(gidCollider) do
-			multiCollider[#multiCollider + 1] = {shape=collider}
-		end
-		-- https://stackoverflow.com/questions/14474206/is-there-a-lua-equivalent-of-javascripts-apply
-		physics.addBody(aWall, 'static', unpack(multiCollider))
-	end
-
-	if gid == 256 + 60 + 0 + 1 then
-		createAWallWithPolygon()
-	elseif gid == 256 + 3 + 1 then
-		createAWallWithPolygon()
-	elseif gid == 256 + 0 + 1 then
-		redHeadGenerate({group=group, x=x, y=y, disabled=true, isPlayer=true})
-	elseif gid == 256 + 2 + 1 then
-		reibaishiGenerate({group=group, x=x, y=y, disabled=true, scenario_index=const.scenario_hello})
-	elseif gid == 183 + 1 then
-		goalGenerate(tilesetData[gid].imageSheet, lid, {group=group, x=x, y=y, role=const.role_item})
-	elseif gid == 64 + 1 then
-		createAWall()
-	else
-		createATile()
-	end
-end
-
 function createShapeCollider(group, object)
 	function createShapeGroup()
 		local shapeGroup = display.newGroup()
@@ -165,10 +120,32 @@ function createShapeCollider(group, object)
 	elseif object.shape == 'polygon' then
 		createAPolygonCollider()
 	end
-
 end
 
-local function load(sceneGroup)
+function M.createATile(group, imageSheet, lid, x, y)
+	display.newImage(group, imageSheet, lid, x, y)
+end
+function M.createAWall(group, imageSheet, lid, x, y)
+	local aWall = display.newImage(group, imageSheet, lid, x, y)
+	physics.addBody(aWall, 'static', {})
+end
+function M.createAWallWithPolygon(group, imageSheet, lid, x, y, gidCollider)
+	local aWall = display.newImage(group, imageSheet, lid, x, y)
+	local multiCollider = {}
+	for _, collider in ipairs(gidCollider) do
+		multiCollider[#multiCollider + 1] = {shape=collider}
+	end
+	-- https://stackoverflow.com/questions/14474206/is-there-a-lua-equivalent-of-javascripts-apply
+	physics.addBody(aWall, 'static', unpack(multiCollider))
+end
+
+function M.createTile(group, tilesetData, gid, x, y, colliders)
+end
+
+function M.afterLoaded(sceneGroup)
+end
+
+function M.load(sceneGroup)
 	local camera = perspective.createView()
 	sceneGroup:insert(camera)
 	appStatus.manager.setCamera(camera)
@@ -188,7 +165,7 @@ local function load(sceneGroup)
 				for col = 1, layer.width do
 					local gid = layer.data[index]
 					if gid > 0 then
-						createTile( 
+						M.createTile( 
 							layerGroup, 
 							tilesetData, 
 							gid,
@@ -205,7 +182,7 @@ local function load(sceneGroup)
 			for _, object in ipairs(objects) do
 				local gid = object.gid
 				if tilesetData[gid] then
-					createTile( 
+					M.createTile( 
 						layerGroup, 
 						tilesetData, 
 						gid,
@@ -220,14 +197,7 @@ local function load(sceneGroup)
 		camera:add(layerGroup, -i + #level.layers + 4) 
 	end
 	
-	local banner = bannerGenerate({x=const.cx, y=const.cy, ready='assets/images/banners/ready.png', go='assets/images/banners/go.png'})
-	appStatus.manager.setBanner(banner)
-	sceneGroup:insert(banner.root)
-
-	local gameover = gameoverGenerate({x=const.cx, y=0 - 200})
-	appStatus.manager.setGameOver(gameover)
-	sceneGroup:insert(gameover.root)
-		
+	M.afterLoaded(sceneGroup)		
 	
 	local worldWidth = level.width * level.tilewidth
   local worldHeight = level.height * level.tileheight
@@ -238,5 +208,4 @@ local function load(sceneGroup)
   appStatus.manager.setWorldBoundary(worldWidth, worldHeight)
 end
 
-
-return load
+return M
