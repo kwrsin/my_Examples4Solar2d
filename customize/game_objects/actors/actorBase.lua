@@ -9,7 +9,12 @@ local function generate(actorName, options)
 	base.manager.setActor(base)
 	local isOptions = require(const.imageDotPath .. actorName .. ".actor")
 	local imageSheet = base.imageSheet(const.imagePath .. actorName .. "/actor.png", isOptions.sheetData)
-	local sqOptions = require(const.imageDotPath .. actorName .. ".sequence")
+	local sequenceName = actorName .. ".sequence"
+	if options.sequenceName then
+		sequenceName = options.sequenceName
+	else
+	end
+	local sqOptions = require(const.imageDotPath .. sequenceName)
 	local sprite = display.newSprite( base.root, imageSheet, sqOptions )
 	base.sprite = sprite
 	base.thinking = false
@@ -71,30 +76,30 @@ local function generate(actorName, options)
 	end
 	function base.moveByBoundary(deltaX, deltaY)
 		sounds.playSE(const.walking)
-		local spFulfHeight = base.sprite.height / 2
-		local spFulfWidth = base.sprite.width / 2
+		local spHalfHeight = base.sprite.height / 2
+		local spHalfWidth = base.sprite.width / 2
 		if deltaY < 0 then
-			if base.root.y + deltaY <= base.manager.boundary.top + spFulfHeight then
-				base.root.y = base.manager.boundary.top + spFulfHeight
+			if base.root.y + deltaY <= base.manager.boundary.top + spHalfHeight then
+				base.root.y = base.manager.boundary.top + spHalfHeight
 			else
 				base.root.y = base.root.y + deltaY
 			end
 		elseif deltaY > 0 then
-			if base.root.y + deltaY >= base.manager.boundary.bottom - spFulfHeight then
-				base.root.y = base.manager.boundary.bottom - spFulfHeight
+			if base.root.y + deltaY >= base.manager.boundary.bottom - spHalfHeight then
+				base.root.y = base.manager.boundary.bottom - spHalfHeight
 			else
 				base.root.y = base.root.y + deltaY
 			end
 		end
 		if deltaX < 0 then
-			if base.root.x + deltaX <= base.manager.boundary.left + spFulfWidth then
-				base.root.x = base.manager.boundary.left + spFulfWidth
+			if base.root.x + deltaX <= base.manager.boundary.left + spHalfWidth then
+				base.root.x = base.manager.boundary.left + spHalfWidth
 			else
 				base.root.x = base.root.x + deltaX
 			end
 		elseif deltaX > 0 then
-			if base.root.x + deltaX >= base.manager.boundary.right - spFulfWidth then
-				base.root.x = base.manager.boundary.right - spFulfWidth
+			if base.root.x + deltaX >= base.manager.boundary.right - spHalfWidth then
+				base.root.x = base.manager.boundary.right - spHalfWidth
 			else
 				base.root.x = base.root.x + deltaX
 			end

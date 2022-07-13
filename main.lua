@@ -38,5 +38,7 @@ appStatus.setPath('assets.levels.level01')
 sounds.addBGM(const.bgm)
 sounds.addSE(const.walking)
 
-composer.gotoScene( 'customize.scenes.title' )
+-- composer.gotoScene( 'customize.scenes.title' )
+composer.gotoScene( 'customize.scenes.tests.testScene' )
+-- composer.gotoScene( 'customize.scenes.tests.testScene2' )
 -- composer.gotoScene( 'customize.scenes.tests.donkeyLike' )
