@@ -202,7 +202,7 @@ function M.load(sceneGroup)
 	local worldWidth = level.width * level.tilewidth
   local worldHeight = level.height * level.tileheight
 	camera:setBounds(const.cx, worldWidth - const.cx, const.cy, worldHeight - const.cy)
-	camera.damping = 10
+	camera.damping = 10	
 	camera:track()
 
   appStatus.manager.setWorldBoundary(worldWidth, worldHeight)

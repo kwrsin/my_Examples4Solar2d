@@ -32,7 +32,7 @@ appStatus.setUI(ui)
 
 appStatus.setManager(manager)
 
-appStatus.setPath('assets.levels.level01')
+appStatus.setPath('assets.levels.landscapeMode')
 
 -- add Sound files
 sounds.addBGM(const.bgm)

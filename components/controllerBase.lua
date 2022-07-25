@@ -114,6 +114,7 @@ end
 -- keyInput
 local function keyInput(event)
 	if appStatus.manager == nil then return end
+	if appStatus.manager.player == nil then return end
 	if appStatus.manager.player.disabled == true then return end
 	if event.phase == 'down' then
 		if event.keyName == 'up' then
@@ -156,6 +157,7 @@ local function generator(options)
 	
 	function base:enterFrame(event)
 		if appStatus.manager == nil then return end
+		if appStatus.manager.player == nil then return end
 		if appStatus.manager.player.disabled == true then return end
 		if cur == nil and btnA == nil and btnB == nil then
 			appStatus.manager.setButtonStatus(nil)

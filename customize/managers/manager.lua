@@ -1,6 +1,6 @@
 -- manager.lua
 local const = require('customize.constants')
-local load = require('customize.loaders.levelLoader')
+local load = require('customize.loaders.landscapeModeLoader')
 local physics = require('physics')
 local composer = require('composer')
 local scenarioIndice = require('assets.scenarios.scenarioIndice')
@@ -117,6 +117,7 @@ local function enterFrame(event)
 end
 
 function manager.focusPlayer()
+	if not manager.player then return end
 	manager.camera:setFocus(manager.player.root)
 end
 
@@ -139,10 +140,12 @@ function manager.start()
 	manager.focusPlayer()
 
 	appStatus.controller.show()
-	manager.banner.start(
-	function()
-		manager.playGame()
-	end)
+	if manager.banner then
+		manager.banner.start(
+		function()
+			manager.playGame()
+		end)
+	end
 end
 
 function manager.stop()
