@@ -1,7 +1,8 @@
 # landscapeMode
 - KEEP IT SIMPLE
-- LESS SOLUTION
-- SMALL DEV
+- DON'T HAVE MANY SOLUTIONS
+- SMALL DEVELOPMENT
+- DON'T DEPENDANCY
 - DON'T REPEAT YOURSELF
 
 1. levels
@@ -15,6 +16,17 @@
 - walls
 
 2. actors
+- images
+	- wait/up/down/left/right
+	- attack
+	- damage
+	- death
+	- lose
+	- win
+	- start
+- imagesheet
+- sequence
+
 - status
 	- hp
 	- mp
