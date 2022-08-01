@@ -17,11 +17,19 @@ return {
 	layerType_tile = 'tilelayer',
 	layerType_object = 'objectgroup',
 
+	-- actor direction
+	dir_up = "up",
+	dir_down = "down",
+	dir_left = "left",
+	dir_right = "right",
+	dir_none = nil,
+
 	-- actor's role
 	role_player = "player",
 	role_enemy = "enemy",
 	role_npc = "npc",
 	role_item = "item",
+	role_bullet = "bullet",
 
 	-- scenarios
 	scenario_hello = 1,

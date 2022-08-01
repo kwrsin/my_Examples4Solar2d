@@ -73,8 +73,20 @@ local function generate(options)
 			end
 		end
 	end
+	function actorBase.spriteListener(event)
+			if string.starts( event.target.sequence, "attack" ) then
+				if event.phase == 'ended' then
+						actorBase.skills.fire()
+				end
+			end
+	end
 	function actorBase.onPressedBtnA(value)
+		if value == nil then return end
 		if actorBase.actionRunning == true then return end
+		local dir = actorBase.direction()
+		if not dir then dir = const.dir_down end
+		local attackName = 'attack_' .. dir
+		actorBase.play(attackName)
 	end
 	function actorBase.onPressedBtnB(value)
 		if actorBase.actionRunning == true then return end

@@ -12,7 +12,7 @@ function M.createTile(group, tilesetData, gid, x, y, colliders)
 	if gid == 150 + 0 + 1 then
 		redHeadGenerate({group=group, x=x, y=y, role=const.role_enemy, disabled=false})
 	elseif gid == 150 + 0 + 2 then
-		frogGenerate({group=group, x=x, y=y, disabled=false, isPlayer=true})
+		frogGenerate({group=group, x=x, y=y, disabled=false, isPlayer=true, skill='frogWeapon'})
 	else
 		M.createATile(group, tilesetData[gid].imageSheet, lid, x, y)
 	end
