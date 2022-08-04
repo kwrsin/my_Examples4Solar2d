@@ -83,7 +83,7 @@ local function generate(options)
 		elseif actionId >= 5 then
 			actorBase.frogAttack()
 		end
-		local timerid = timer.performWithDelay(5000, function()
+		local timerid = timer.performWithDelay(1000, function()
 			actorBase.thinking = false
 		end)
 	end
