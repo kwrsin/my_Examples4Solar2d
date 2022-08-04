@@ -7,41 +7,6 @@ local weaponName = 'frogWeapon'
 local function generate(options, actor)
 	local base = weaponBaseGenerate(weaponName, options, actor)
 	
-	-- function base.setup()
-	-- 	local function createParts()
-	-- 		local rect = display.newRect(base.root, base.root.x, base.root.y, 8, 16)
-	-- 		rect:toBack()
-	-- 		rect:setFillColor( 1.0, 0.5, 0.5 )
-	-- 		physics.addBody( rect, 'dynamic', {isSensor=true} )
-	-- 		rect.collision = function(self, event)
-	-- 			if event.phase == 'began' then
-	-- 				if event.other._role == const.role_npc then
-
-	-- 				elseif event.other._role == const.role_enemy then
-	-- 					DEBUG('hit')
-	-- 				elseif event.other._role == const.role_item then
-
-	-- 				elseif event.other._role == const.role_bullet then
-
-	-- 				elseif event.other._role == const.role_player then
-
-	-- 				end
-	-- 			end
-	-- 		end
-	-- 		rect:addEventListener('collision', rect)
-	-- 		base.root.gravityScale = 0.0
-	-- 		return rect
-	-- 	end
-	-- 	local partsNum = 8	
-	-- 	local nextParts = createParts()
-	-- 	for i = 1, partsNum do
-	-- 		local newParts = createParts()
-	-- 		physics.newJoint( "rope", nextParts, newParts, 0, 0 )
-	-- 		nextParts = newParts
-	-- 	end
-	-- 	base.lastParts = nextParts
-
-	-- end
 	base.setup()
 	base.offsetPosition(8)
 	base.hit = false
@@ -50,11 +15,11 @@ local function generate(options, actor)
 		base.actor.actionRunning = true
 		if base.root.anchorX == 1 or base.root.anchorX == 0 then
 			transition.scaleTo( base.root, {time=300, xScale=5, onComplete=function() 
-				transition.scaleTo(base.root, {time=200, xScale=1, onComplete=function() base.clear() end})
+				transition.scaleTo(base.root, {time=200, xScale=1, onComplete=function() base.clear();actor.skills.push(weaponName) end})
 			end} )
 		elseif base.root.anchorY == 1 or base.root.anchorY == 0  then
 			transition.scaleTo( base.root, {time=300, yScale=5, onComplete=function() 
-				transition.scaleTo(base.root, {time=200, yScale=1, onComplete=function() base.clear() end})
+				transition.scaleTo(base.root, {time=200, yScale=1, onComplete=function() base.clear();actor.skills.push(weaponName) end})
 			end} )
 		end		
 	end

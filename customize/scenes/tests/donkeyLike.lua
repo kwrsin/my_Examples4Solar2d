@@ -17,7 +17,6 @@ local keyState = {
 	right = false,
 }
 
-math.randomseed(os.time())
 
 -- UTILITIES
 local function createSprite(object, imagePath, sheetPath, sequencePath)

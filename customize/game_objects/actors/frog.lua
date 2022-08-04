@@ -57,7 +57,36 @@ local function generate(options)
 			actorBase.actionRunning = false
 		end} )
 	end
+	function actorBase.frogAttack()
+		actorBase.actionRunning = true
+		local dir = actorBase.direction()
+		if not dir then dir = const.dir_down end
+		local attackName = 'attack_' .. dir
+		actorBase.play(attackName)
+	end
 	-- override
+	function actorBase.think()
+		if actorBase.actionRunning == true then return end
+		local actionId = math.floor(math.random(1, 10))
+		if actionId == 1 then
+			actorBase.currentDirection = {x=1, y=0}
+			actorBase.right()
+		elseif actionId == 2 then
+			actorBase.currentDirection = {x=-1, y=0}
+			actorBase.left()
+		elseif actionId == 3 then
+			actorBase.currentDirection = {x=0, y=1}
+			actorBase.down()
+		elseif actionId == 4 then
+			actorBase.currentDirection = {x=0, y=-1}
+			actorBase.up()
+		elseif actionId >= 5 then
+			actorBase.frogAttack()
+		end
+		local timerid = timer.performWithDelay(5000, function()
+			actorBase.thinking = false
+		end)
+	end
 	function actorBase.onPressedCur(value)
 		if value.x * value.x > value.y * value.y then
 			if value.x > 0 then
@@ -83,10 +112,7 @@ local function generate(options)
 	function actorBase.onPressedBtnA(value)
 		if value == nil then return end
 		if actorBase.actionRunning == true then return end
-		local dir = actorBase.direction()
-		if not dir then dir = const.dir_down end
-		local attackName = 'attack_' .. dir
-		actorBase.play(attackName)
+		actorBase.frogAttack()
 	end
 	function actorBase.onPressedBtnB(value)
 		if actorBase.actionRunning == true then return end

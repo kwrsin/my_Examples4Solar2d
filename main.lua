@@ -11,6 +11,8 @@ local uiGenerator = require('components.ui')
 local const = require('customize.constants')
 local manager = require('customize.managers.manager')
 
+math.randomseed(os.time())
+
 function DEBUG(obj)
 	if utils.isSimulator() then
 		print(inspect(obj))

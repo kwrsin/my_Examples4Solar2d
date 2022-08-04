@@ -10,9 +10,9 @@ local M = require('libs.loader')
 function M.createTile(group, tilesetData, gid, x, y, colliders)
 	local lid = tilesetData[gid].lid
 	if gid == 150 + 0 + 1 then
-		redHeadGenerate({group=group, x=x, y=y, role=const.role_enemy, disabled=false})
+		redHeadGenerate({group=group, x=x, y=y, role=const.role_enemy, isPlayer=true, disabled=false})
 	elseif gid == 150 + 0 + 2 then
-		frogGenerate({group=group, x=x, y=y, disabled=false, isPlayer=true, skill='frogWeapon'})
+		frogGenerate({group=group, x=x, y=y, disabled=false, role=const.role_enemy, skill='frogWeapon'})
 	else
 		M.createATile(group, tilesetData[gid].imageSheet, lid, x, y)
 	end
