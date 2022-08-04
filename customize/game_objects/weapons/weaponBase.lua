@@ -71,6 +71,21 @@ local function generate(weaponName, options, actor)
 		base.root = nil
 	end
 
+	function base.hasCollidedRect( obj1, obj2 )
+		if not obj2 then obj2 = base.root end
+    if ( obj1 == nil ) then
+        return false
+    end
+    if ( obj2 == nil ) then
+        return false
+    end		 
+    local left = obj1.contentBounds.xMin <= obj2.contentBounds.xMin and obj1.contentBounds.xMax >= obj2.contentBounds.xMin
+    local right = obj1.contentBounds.xMin >= obj2.contentBounds.xMin and obj1.contentBounds.xMin <= obj2.contentBounds.xMax
+    local up = obj1.contentBounds.yMin <= obj2.contentBounds.yMin and obj1.contentBounds.yMax >= obj2.contentBounds.yMin
+    local down = obj1.contentBounds.yMin >= obj2.contentBounds.yMin and obj1.contentBounds.yMin <= obj2.contentBounds.yMax
+    return ( left or right ) and ( up or down )
+	end
+	
 	-- function base.start()
 	-- 	base.actor.actionRunning = true
 	-- 	local timerid = timer.performWithDelay(2000, function()

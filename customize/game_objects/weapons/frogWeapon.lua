@@ -58,35 +58,21 @@ local function generate(options, actor)
 			end} )
 		end		
 	end
-	Runtime:addEventListener( 'enterFrame', function(event)
-		local function hasCollidedRect( obj1, obj2 )
-		    if ( obj1 == nil ) then
-		        return false
-		    end
-		    if ( obj2 == nil ) then
-		        return false
-		    end		 
-		    local left = obj1.contentBounds.xMin <= obj2.contentBounds.xMin and obj1.contentBounds.xMax >= obj2.contentBounds.xMin
-		    local right = obj1.contentBounds.xMin >= obj2.contentBounds.xMin and obj1.contentBounds.xMin <= obj2.contentBounds.xMax
-		    local up = obj1.contentBounds.yMin <= obj2.contentBounds.yMin and obj1.contentBounds.yMax >= obj2.contentBounds.yMin
-		    local down = obj1.contentBounds.yMin >= obj2.contentBounds.yMin and obj1.contentBounds.yMin <= obj2.contentBounds.yMax
-		    return ( left or right ) and ( up or down )
-		end
-		
+	Runtime:addEventListener( 'enterFrame', function(event)		
 		if not base.actor.actionRunning then return end
 		if base.hit then return end
 
 		if base.actor.isPlayer then
 			local enemies = base.actor.manager.enemies or {}
 			for _, enemy in ipairs(enemies) do
-				if hasCollidedRect(enemy.root, base.root) then
+				if base.hasCollidedRect(enemy.root) then
 					DEBUG('enemy hit')
 					base.hit = not base.hit
 				end				
 			end
 		else
 			local player = base.actor.manager.player
-			if player and hasCollidedRect(player.root, base.root) then
+			if player and base.hasCollidedRect(player.root) then
 				DEBUG('player hit')
 				base.hit = not base.hit
 			end				
