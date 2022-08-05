@@ -3,12 +3,13 @@ local const = require('customize.constants')
 local weaponBaseGenerate = require('customize.game_objects.weapons.weaponBase')
 local physics = require 'physics'
 local weaponName = 'frogWeapon'
+local offset = 8
 
 local function generate(options, actor)
 	local base = weaponBaseGenerate(weaponName, options, actor)
 	
 	base.setup()
-	base.offsetPosition(8)
+	base.offsetPosition(offset)
 	base.hit = false
 
 	function base.start()
@@ -23,9 +24,10 @@ local function generate(options, actor)
 			end} )
 		end		
 	end
-	Runtime:addEventListener( 'enterFrame', function(event)		
+	Runtime:addEventListener( 'enterFrame', function(event)
 		if not base.actor.actionRunning then return end
 		if base.hit then return end
+		base.adjustPosition(offset)
 
 		if base.actor.isPlayer then
 			local enemies = base.actor.manager.enemies or {}

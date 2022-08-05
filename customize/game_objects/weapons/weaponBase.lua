@@ -65,6 +65,25 @@ local function generate(weaponName, options, actor)
 		end
 	end
 
+	function base.adjustPosition(offset)
+		if base.actor and base.root then
+			local dir = actor.direction() or const.dir_down
+			if dir == const.dir_up then
+				base.root.y = base.actor.root.y - offset
+				base.root.x = base.actor.root.x
+			elseif dir == const.dir_down then
+				base.root.y = base.actor.root.y + offset
+				base.root.x = base.actor.root.x
+			elseif dir == const.dir_left then
+				base.root.x = base.actor.root.x - offset
+				base.root.y = base.actor.root.y
+			elseif dir == const.dir_right then
+				base.root.x = base.actor.root.x + offset
+				base.root.y = base.actor.root.y
+			end
+		end		
+	end
+
 	function base.clear()
 		base.actor.actionRunning = false
 		base.root:removeSelf( )
@@ -85,7 +104,7 @@ local function generate(weaponName, options, actor)
     local down = obj1.contentBounds.yMin >= obj2.contentBounds.yMin and obj1.contentBounds.yMin <= obj2.contentBounds.yMax
     return ( left or right ) and ( up or down )
 	end
-	
+
 	-- function base.start()
 	-- 	base.actor.actionRunning = true
 	-- 	local timerid = timer.performWithDelay(2000, function()
