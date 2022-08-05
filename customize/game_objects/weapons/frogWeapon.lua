@@ -25,9 +25,9 @@ local function generate(options, actor)
 		end		
 	end
 	Runtime:addEventListener( 'enterFrame', function(event)
+		base.adjustPosition(offset)
 		if not base.actor.actionRunning then return end
 		if base.hit then return end
-		base.adjustPosition(offset)
 
 		if base.actor.isPlayer then
 			local enemies = base.actor.manager.enemies or {}
