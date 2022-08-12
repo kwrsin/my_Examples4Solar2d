@@ -15,14 +15,14 @@ local function generate(options, actor)
 	function base.start()
 		base.actor.actionRunning = true
 		if base.root.anchorX == 1 or base.root.anchorX == 0 then
-			transition.scaleTo( base.root, {time=300, xScale=5, onComplete=function() 
-				transition.scaleTo(base.root, {time=200, xScale=1, onComplete=function() base.clear();actor.skills.push(weaponName) end})
+			transition.scaleTo( base.root, {time=300, tag=base.tagName, xScale=5, onComplete=function() 
+				transition.scaleTo(base.root, {time=200, tag=base.tagName, xScale=1, onComplete=function() base.clear();actor.skills.push(weaponName) end})
 			end} )
 		elseif base.root.anchorY == 1 or base.root.anchorY == 0  then
-			transition.scaleTo( base.root, {time=300, yScale=5, onComplete=function() 
-				transition.scaleTo(base.root, {time=200, yScale=1, onComplete=function() base.clear();actor.skills.push(weaponName) end})
+			transition.scaleTo( base.root, {time=300, tag=base.tagName, yScale=5, onComplete=function() 
+				transition.scaleTo(base.root, {time=200, tag=base.tagName, yScale=1, onComplete=function() base.clear();actor.skills.push(weaponName) end})
 			end} )
-		end		
+		end
 	end
 	Runtime:addEventListener( 'enterFrame', function(event)
 		base.adjustPosition(offset)

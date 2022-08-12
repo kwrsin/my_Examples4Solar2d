@@ -52,6 +52,14 @@ local function createAttack(actor, skill)
 end
 
 local function generate(actorName, options)
+	local function getFilter(base)
+		local filter = const.gcol_enemy
+		if base.root._role == const.role_player then
+			filter = const.gcol_player
+		end
+		return filter
+	end
+
 	local base = baseGenerate(options)
 	base.manager.setActor(base)
 	local isOptions = require(const.imageDotPath .. actorName .. ".actor")
@@ -65,7 +73,7 @@ local function generate(actorName, options)
 	local sprite = display.newSprite( base.root, imageSheet, sqOptions )
 	base.sprite = sprite
 	base.thinking = false
-	physics.addBody(base.root, 'dynamic', {friction=0.6, bounce=0.2, density=3, radius=10})
+	physics.addBody(base.root, 'dynamic', {friction=0.6, bounce=0.2, density=3, radius=10, filter=getFilter(base)})
 	base.root.collision = function(self, event)
 		if event.phase == 'began' then
 			if event.other._role == const.role_npc then
@@ -91,6 +99,27 @@ local function generate(actorName, options)
 	function base.spriteListener(event)
 	end
 
+	function base.getTarget()
+		if base.root._is_player then
+			local target = nil
+			for i, enemy in ipairs(base.manager.enemies) do
+				if target == nil then
+					target = enemy
+				else
+					local distance1 = 
+						(base.manager.player.root.x - target.root.x) * (base.manager.player.root.x - target.root.x) + (base.manager.player.root.y - target.root.y) * (base.manager.player.root.y - target.root.y)
+					local distance2 = 
+						(base.manager.player.root.x - enemy.root.x) * (base.manager.player.root.x - enemy.root.x) + (base.manager.player.root.y - enemy.root.y) * (base.manager.player.root.y - enemy.root.y)
+					if distance1 > distance2 then
+						target = enemy
+					end
+				end
+			end
+			return target
+		end
+		return base.manager.player
+	end
+
 	function base.direction()
 		if not base.currentDirection then return const.dir_none end
 		if base.currentDirection.x * base.currentDirection.x > base.currentDirection.y * base.currentDirection.y then
@@ -109,12 +138,6 @@ local function generate(actorName, options)
 		return const.dir_none
 	end
 
-	function base.play(name)
-		if base.sprite.sequence == name and base.sprite.isPlaying then return end
-		base.sprite:setSequence(name)
-		base.sprite:play()
-	end
-	
 	function base:enterFrame(event)
 		if base.disabled then
 			return
