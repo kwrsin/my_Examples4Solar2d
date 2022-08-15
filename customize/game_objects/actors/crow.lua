@@ -24,8 +24,8 @@ local function  generate( options )
 		actorBase.actionRunning = true
 		actorBase.play('attack')
 		local distanceX = target.root.x - actorBase.root.x
-		local distanceY = (target.root.y - actorBase.root.y) * -1
-		actorBase.root.rotation = math.deg( math.atan2( distanceX, distanceY ) )
+		local distanceY = target.root.y - actorBase.root.y
+		actorBase.root.rotation = math.deg( math.atan2( distanceX, -distanceY ) )
 		transition.moveTo( actorBase.root, {time=300, x=target.root.x, y=target.root.y, onComplete=function()
 			actorBase.root.rotation = 0
 			actorBase.play('wait')
